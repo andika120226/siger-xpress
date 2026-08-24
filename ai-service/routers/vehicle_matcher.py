@@ -14,7 +14,6 @@ from services.constraint_matcher import match_vehicles_cargo
 
 router = APIRouter(tags=["Vehicle-Cargo Matching"])
 
-
 @router.post(
     "/match-vehicle",
     response_model=VehicleMatchResponse,
