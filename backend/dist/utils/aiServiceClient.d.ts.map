@@ -1,0 +1,1 @@
+{"version":3,"file":"aiServiceClient.d.ts","sourceRoot":"","sources":["../../src/utils/aiServiceClient.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AAKH;;;;;;;GAOG;AACH,wBAAsB,kBAAkB,CACtC,IAAI,EAAE,MAAM,EACZ,IAAI,EAAE,OAAO,GACZ,OAAO,CAAC,OAAO,CAAC,CAmDlB;AAED;;GAEG;AACH,wBAAsB,oBAAoB,IAAI,OAAO,CAAC;IACpD,MAAM,EAAE,MAAM,CAAC;IACf,SAAS,EAAE,OAAO,CAAC;CACpB,CAAC,CAWD"}
