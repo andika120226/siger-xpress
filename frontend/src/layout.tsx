@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={${geistSans.variable} ${geistMono.variable} ${audiowide.variable} ${michroma.variable} h-full antialiased}
+      className={`${geistSans.variable} ${geistMono.variable} ${audiowide.variable} ${michroma.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[var(--color-bg)]" suppressHydrationWarning>
         {children}
