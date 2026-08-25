@@ -387,3 +387,36 @@ select.input-field {
   min-height: 729px;
   padding: 43px clamp(18px, 3vw, 45px) 24px;
 }
+.warehouse-section-title {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 1.2px;
+}
+
+.warehouse-rack-grid {
+  display: grid;
+  grid-template-columns: repeat(13, 60px);
+  gap: 16px;
+  justify-content: center;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 18px;
+}
+
+.warehouse-rack {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #0052d2;
+  border-radius: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.warehouse-rack:hover {
+  transform: translateY(-2px);
+}
+
+.warehouse-rack-empty {
+  background: var(--color-bg);
+  border-color: #0052d2;
+}
