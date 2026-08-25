@@ -824,3 +824,44 @@ select.input-field {
   font-size: 13px;
   line-height: 1.6;
 }
+
+.forecast-chart-shell {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.forecast-y-axis {
+  height: 286px;
+  padding: 0 0 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  color: #4b5563;
+  font-size: 10px;
+  line-height: 1;
+}
+
+.forecast-y-axis span::after {
+  content: " ton";
+  color: #7a7a7a;
+  font-size: 8px;
+}
+
+.forecast-chart {
+  position: relative;
+  height: 286px;
+  border-left: 2px solid rgba(0, 82, 210, 0.25);
+  border-bottom: 2px solid rgba(0, 82, 210, 0.25);
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(14px, 3vw, 36px);
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 18px 18px 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
+  border-radius: 8px 8px 0 0;
+}
