@@ -158,3 +158,15 @@ function VehicleIcon({ type = "truck" }: { type?: string }) {
     </svg>
   );
 }
+export default function VehicleTab({ onError }: { onError: (msg: string) => void }) {
+  const [vehicles, setVehicles] = useState<VehicleInput[]>([
+    { name: "Truk Pendingin Alpha", type: "refrigerated", max_weight_kg: "5000" },
+    { name: "Box Truck Beta", type: "box", max_weight_kg: "3000" },
+    { name: "Motor Kurir Gamma", type: "motorcycle", max_weight_kg: "50" },
+  ]);
+  const [cargo, setCargo] = useState<CargoInput[]>([
+    { name: "Ikan Beku", type: "frozen", weight_kg: "2000" },
+    { name: "TV LED", type: "fragile", weight_kg: "500" },
+    { name: "Dokumen", type: "standard", weight_kg: "5" },
+  ]);
+}
