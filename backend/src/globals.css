@@ -1,0 +1,26 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #0052d2;
+  --color-primary-dark: #003fa3;
+  --color-primary-light: #3b82f6;
+  --color-accent: #0052d2;
+  --color-accent-glow: rgba(0, 82, 210, 0.15);
+
+  /* Surface Colors (Light Theme) */
+  --color-bg: #f5ffff;
+  --color-surface: #ffffff;
+  --color-surface-hover: #e9ffff;
+  --color-surface-elevated: #e9ffff;
+  --color-border: #0052d2;
+  --color-border-active: #0052d2;
+
+  /* Text */
+  --color-text: #000000;
+  --color-text-secondary: #0052d2;
+  --color-text-muted: #555555;
+
+  /* Status */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+}
