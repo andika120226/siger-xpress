@@ -221,3 +221,40 @@ export default function RouteMap({ origin, destinations, optimalSequence, traffi
     if (status === "warning") return "#FFD700";   // Yellow
     return "#10B981"; // Emerald Green for Clear (was cyan)
   };
+
+    return (
+    <div className="w-full h-full absolute inset-0">
+      <MapContainer
+        center={center}
+        zoom={9}
+        scrollWheelZoom={true}
+        className="w-full h-full"
+        style={{ height: '100%', width: '100%' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {/* LEGEND OVERLAY */}
+        <div className="leaflet-bottom leaflet-right !bottom-9 !right-4 absolute z-[400] pointer-events-none">
+          <div className="bg-white/90 border border-gray-300 rounded shadow-md p-3 text-xs text-gray-800 font-medium pointer-events-auto">
+            <h4 className="font-bold mb-2 border-b pb-1">Status Rute</h4>
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-4 h-1 bg-[#10B981]"></div>
+              <span>Lancar</span>
+            </div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-4 h-1 bg-[#FFD700]"></div>
+              <span>Renovasi (Peringatan)</span>
+            </div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <div className="w-4 h-1 bg-[#FF3366]"></div>
+              <span>Macet (Kepadatan)</span>
+            </div>
+            <div className="flex items-center gap-2 border-t pt-1.5 mt-1.5">
+              <div className="w-4 h-1 border-b-2 border-dashed border-[#FF3366]"></div>
+              <span className="text-[10px]">Area Macet (Koridor)</span>
+            </div>
+          </div>
+        </div>
