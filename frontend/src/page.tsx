@@ -42,7 +42,7 @@ export default function Home() {
     }
   };
 
-useEffect(() => {
+  useEffect(() => {
     checkHealth();
     const interval = setInterval(checkHealth, 10000);
     return () => clearInterval(interval);
@@ -78,13 +78,14 @@ useEffect(() => {
               X-press
             </p>
           </div>
-              <nav className="figma-nav" aria-label="Primary navigation">
+
+          <nav className="figma-nav" aria-label="Primary navigation">
             <div className="figma-nav-items">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={tab-button ${activeTab === tab.id ? "active" : ""}}
+                  className={`tab-button ${activeTab === tab.id ? "active" : ""}`}
                 >
                   {tab.label}
                 </button>
@@ -95,16 +96,17 @@ useEffect(() => {
 
           <div className="flex flex-wrap justify-center gap-3 text-[10px] text-[var(--color-text-muted)]">
             <span className="flex items-center gap-2">
-              <span className={size-2 rounded-full ${health.backend === "online" ? "bg-[var(--color-success)]" : health.backend === "offline" ? "bg-[var(--color-error)]" : "bg-[var(--color-warning)]"}} />
+              <span className={`size-2 rounded-full ${health.backend === "online" ? "bg-[var(--color-success)]" : health.backend === "offline" ? "bg-[var(--color-error)]" : "bg-[var(--color-warning)]"}`} />
               Backend {health.backend}
             </span>
             <span className="flex items-center gap-2">
-              <span className={size-2 rounded-full ${health.aiService === "connected" ? "bg-[var(--color-success)]" : health.aiService === "disconnected" ? "bg-[var(--color-error)]" : "bg-[var(--color-warning)]"}} />
+              <span className={`size-2 rounded-full ${health.aiService === "connected" ? "bg-[var(--color-success)]" : health.aiService === "disconnected" ? "bg-[var(--color-error)]" : "bg-[var(--color-warning)]"}`} />
               AI Service {health.aiService}
             </span>
           </div>
         </header>
-  <main className="w-full">
+
+        <main className="w-full">
           {activeTab === "route" && (
             <RouteTab onError={(msg) => triggerToast(msg, "error")} />
           )}
