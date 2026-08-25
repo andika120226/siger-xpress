@@ -97,3 +97,17 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<RouteResult | null>(null);
   const [simulationStep, setSimulationStep] = useState<number | null>(null);
+
+   useEffect(() => {
+    if (simulationStep !== null && result?.traffic_segments) {
+      if (simulationStep < result.traffic_segments.length) {
+        const timer = setTimeout(() => {
+          setSimulationStep((step) => (step !== null ? step + 1 : null));
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
+
+      const timer = setTimeout(() => setSimulationStep(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [simulationStep, result]);
