@@ -580,3 +580,37 @@ select.input-field {
   display: flex;
   gap: 32px;
 }
+.warehouse-pagination button {
+  color: #0052d2;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-michroma), sans-serif;
+}
+
+.warehouse-pagination button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.vehicle-progress {
+  height: 87px;
+  border: 4px solid #0052d2;
+  border-radius: 8px;
+  background: var(--color-bg);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 7px 27px 7px 7px;
+  color: #0052d2;
+  font-size: 20px;
+  letter-spacing: 1.2px;
+}
+
+.vehicle-progress-track {
+  height: 73px;
+  border-radius: 5px;
+  background: var(--color-surface-elevated);
+  overflow: hidden;
+}
