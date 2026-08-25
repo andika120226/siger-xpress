@@ -136,5 +136,46 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
     updated[idx] = { ...updated[idx], [field]: value };
     setItems(updated);
   };
+    const handleSubmit = async () => {
+    if (items.length < 1) {
+      onError("Minimal 1 item kargo diperlukan.");
+      return;
+    }
 
+    setLoading(true);
+    setResult(null);
+    setCurrentPage(1);
+
+    try {
+      const res = await fetch(${API_BASE}/warehouse/optimize, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          warehouse_dim: {
+            length_m: parseFloat(dims.length_m),
+            width_m: parseFloat(dims.width_m),
+            height_m: parseFloat(dims.height_m),
+          },
+          items: items.map((item) => ({
+            name: item.name,
+            qty: parseInt(item.qty),
+            size: item.size,
+            weight_kg: parseFloat(item.weight_kg),
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || err.message || "Request failed");
+      }
+
+      setResult(await res.json());
+      setActiveView("visual");
+    } catch (err: any) {
+      onError(err.message || "Gagal menghubungi server.");
+    } finally {
+      setLoading(false);
+    }
+  };
 }
