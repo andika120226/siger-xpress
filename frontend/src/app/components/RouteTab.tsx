@@ -111,3 +111,67 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
       return () => clearTimeout(timer);
     }
   }, [simulationStep, result]);
+
+  const clearRouteResult = () => {
+    setResult(null);
+    setSimulationStep(null);
+  };
+
+  const addDest = () => {
+    clearRouteResult();
+    setDestinations([...destinations, EMPTY_DEST()]);
+  };
+
+  const removeDest = (idx: number) => {
+    clearRouteResult();
+    setDestinations(destinations.filter((_, i) => i !== idx));
+  };
+
+  const updateDest = (idx: number, field: keyof Location, value: string) => {
+    clearRouteResult();
+    const updated = [...destinations];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setDestinations(updated);
+  };
+
+  const updateOrigin = (field: keyof Location, value: string) => {
+    clearRouteResult();
+    setOrigin({ ...origin, [field]: value });
+  };
+
+  const handleSubmit = async () => {
+    if (destinations.length < 2) {
+      onError("Minimal 2 titik tujuan diperlukan.");
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+    setSimulationStep(null);
+
+    try {
+      const res = await fetch(`${API_BASE}/route/optimize`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          origin: { name: origin.name, lat: parseFloat(origin.lat), lng: parseFloat(origin.lng) },
+          destinations: destinations.map((destination) => ({
+            name: destination.name,
+            lat: parseFloat(destination.lat),
+            lng: parseFloat(destination.lng),
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || err.message || "Request failed");
+      }
+
+      setResult(await res.json());
+    } catch (err: any) {
+      onError(err.message || "Gagal menghubungi server.");
+    } finally {
+      setLoading(false);
+    }
+  };
