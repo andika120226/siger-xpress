@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 interface MetricCardProps {
   icon?: string;
@@ -6,7 +6,6 @@ interface MetricCardProps {
   value: string | number;
   unit?: string;
 }
-
 export default function MetricCard({ icon, label, value, unit }: MetricCardProps) {
   return (
     <div className="h-[111px] rounded-[10px] border-2 border-[var(--color-primary)] bg-[var(--color-bg)] p-4 animate-fade-in-up flex flex-col justify-center gap-2">

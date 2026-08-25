@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-export default function LoadingSpinner({ text = "Memproses..." }: { text?: string }) {
+export default function LoadingSpinner({ text = 'Memproses...' }: { text?: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4 py-12 animate-fade-in-up">
       <div className="relative w-12 h-12">

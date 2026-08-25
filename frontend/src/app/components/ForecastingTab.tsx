@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useMemo, useState } from "react";
-import LoadingSpinner from "./LoadingSpinner";
+import { useMemo, useState } from 'react';
+import LoadingSpinner from './LoadingSpinner';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api/v1";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api/v1';
 
 interface ForecastPoint {
   month: string;
@@ -17,32 +17,34 @@ interface DemandResult {
   average_volume_tons: number;
   recommendations: string[];
 }
-
 const PRESET_COMMODITIES = [
-  "Arus Truk Penyeberangan Bakauheni",
-  "Kopi Liwa",
-  "Kopi Robusta Tanggamus",
-  "Pisang Muli Lampung",
-  "Kargo Logistik Campuran",
+  'Arus Truk Penyeberangan Bakauheni',
+  'Kopi Liwa',
+  'Kopi Robusta Tanggamus',
+  'Pisang Muli Lampung',
+  'Kargo Logistik Campuran',
 ];
 
 const SIMULATION_SCENARIOS = [
-  { name: "Optimasi Rute Zig-Zag Lampung", commodity: "Kopi Liwa", months: 6 },
-  { name: "Lonjakan Penyeberangan Bakauheni", commodity: "Arus Truk Penyeberangan Bakauheni", months: 8 },
-  { name: "Distribusi Komoditas UKM", commodity: "Pisang Muli Lampung", months: 6 },
-  { name: "Kargo Campuran Regional", commodity: "Kargo Logistik Campuran", months: 12 },
+  { name: 'Optimasi Rute Zig-Zag Lampung', commodity: 'Kopi Liwa', months: 6 },
+  {
+    name: 'Lonjakan Penyeberangan Bakauheni',
+    commodity: 'Arus Truk Penyeberangan Bakauheni',
+    months: 8,
+  },
+  { name: 'Distribusi Komoditas UKM', commodity: 'Pisang Muli Lampung', months: 6 },
+  { name: 'Kargo Campuran Regional', commodity: 'Kargo Logistik Campuran', months: 12 },
 ];
 
 const formatNumber = (value: number, digits = 2) =>
-  value.toLocaleString("id-ID", {
+  value.toLocaleString('id-ID', {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
-
 export default function ForecastingTab({ onError }: { onError: (msg: string) => void }) {
-  const [commodityPreset, setCommodityPreset] = useState("Kopi Liwa");
-  const [commodity, setCommodity] = useState("Kopi Liwa");
-  const [months, setMonths] = useState("6");
+  const [commodityPreset, setCommodityPreset] = useState('Kopi Liwa');
+  const [commodity, setCommodity] = useState('Kopi Liwa');
+  const [months, setMonths] = useState('6');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DemandResult | null>(null);
 
@@ -50,7 +52,7 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
     if (!result || result.forecast_data.length === 0) {
       return {
         totalVolume: 0,
-        peakMonth: "0",
+        peakMonth: '0',
         peakVolume: 0,
         maxVolume: 1,
       };
@@ -67,10 +69,9 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
         }
         return acc;
       },
-      { totalVolume: 0, peakMonth: "-", peakVolume: 0, maxVolume: 1 }
+      { totalVolume: 0, peakMonth: '-', peakVolume: 0, maxVolume: 1 }
     );
   }, [result]);
-
   const applyCommodityPreset = (value: string) => {
     setCommodityPreset(value);
     setCommodity(value);
@@ -90,12 +91,12 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
     const parsedMonths = parseInt(months);
 
     if (!commodity.trim()) {
-      onError("Silakan masukkan nama komoditas atau lintasan.");
+      onError('Silakan masukkan nama komoditas atau lintasan.');
       return;
     }
 
     if (Number.isNaN(parsedMonths) || parsedMonths < 3 || parsedMonths > 24) {
-      onError("Prediksi bulan harus berada di rentang 3 sampai 24 bulan.");
+      onError('Prediksi bulan harus berada di rentang 3 sampai 24 bulan.');
       return;
     }
 
@@ -104,24 +105,23 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
 
     try {
       const res = await fetch(`${API_BASE}/demand/predict`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ commodity, months: parsedMonths }),
       });
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail || err.message || "Request failed");
+        throw new Error(err.detail || err.message || 'Request failed');
       }
 
       setResult(await res.json());
     } catch (err: any) {
-      onError(err.message || "Gagal menghubungi server.");
+      onError(err.message || 'Gagal menghubungi server.');
     } finally {
       setLoading(false);
     }
   };
-
   const chartData = result?.forecast_data || [];
   const chartScaleMax = Math.max(100, Math.ceil(metrics.maxVolume / 25) * 25);
   const yAxisTicks = [1, 0.75, 0.5, 0.25, 0].map((ratio) => chartScaleMax * ratio);
@@ -140,7 +140,9 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
       <section className="forecast-metric-grid">
         <article className="forecast-metric-card">
           <span>Total Estimasi Volume</span>
-          <strong>{formatNumber(metrics.totalVolume)} <small>ton</small></strong>
+          <strong>
+            {formatNumber(metrics.totalVolume)} <small>ton</small>
+          </strong>
         </article>
         <article className="forecast-metric-card">
           <span>Bulan Pencapaian Tertinggi</span>
@@ -149,13 +151,10 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
           </strong>
         </article>
       </section>
-
       <section className="figma-panel forecast-chart-panel">
         {loading && <LoadingSpinner text="Menganalisis tren historis dan permintaan..." />}
 
-        {!loading && !result && (
-          <div className="forecast-empty-state">Tidak Ada Data</div>
-        )}
+        {!loading && !result && <div className="forecast-empty-state">Tidak Ada Data</div>}
 
         {!loading && result && (
           <>
@@ -171,13 +170,20 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
                 ))}
               </div>
 
-              <div className="forecast-chart" role="img" aria-label={`Grafik proyeksi demand ${result.commodity}`}>
+              <div
+                className="forecast-chart"
+                role="img"
+                aria-label={`Grafik proyeksi demand ${result.commodity}`}
+              >
                 <div className="forecast-grid-lines" aria-hidden="true">
                   {yAxisTicks.map((tick) => (
                     <span key={tick} />
                   ))}
                 </div>
-                <div className="forecast-average-line" style={{ bottom: `calc(34px + ${averageLinePosition * 0.88}%)` }}>
+                <div
+                  className="forecast-average-line"
+                  style={{ bottom: `calc(34px + ${averageLinePosition * 0.88}%)` }}
+                >
                   <span>Avg {formatNumber(result.average_volume_tons, 0)} ton</span>
                 </div>
 
@@ -187,7 +193,7 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
                     <div className="forecast-bar-group" key={point.month}>
                       <div className="forecast-bar-track">
                         <div
-                          className={`forecast-bar ${point.is_spike ? "is-spike" : ""}`}
+                          className={`forecast-bar ${point.is_spike ? 'is-spike' : ''}`}
                           style={{ height: `${height}%` }}
                           title={`${point.month}: ${formatNumber(point.predicted_volume_tons)} ton`}
                         >
@@ -203,7 +209,6 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
           </>
         )}
       </section>
-
       <section className="figma-panel forecast-recommendation-panel">
         <h2>Rekomedasi Strategi Optimal</h2>
 
@@ -238,9 +243,10 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
           ))}
         </select>
       </section>
-
       <section className="figma-panel min-h-[237px] p-6 sm:p-8">
-        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">Kolom Input Data</h2>
+        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">
+          Kolom Input Data
+        </h2>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-[280px_1fr]">
           <label className="forecast-input-block">
@@ -288,8 +294,12 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
         </label>
       </section>
 
-      <button className="btn-primary h-[65px] w-full rounded-[10px] text-[20px] sm:text-[24px]" onClick={handleSubmit} disabled={loading}>
-        {loading ? "Membuat Data..." : "Membuat Data"}
+      <button
+        className="btn-primary h-[65px] w-full rounded-[10px] text-[20px] sm:text-[24px]"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? 'Membuat Data...' : 'Membuat Data'}
       </button>
     </div>
   );

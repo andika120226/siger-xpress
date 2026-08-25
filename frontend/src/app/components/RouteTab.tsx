@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import LoadingSpinner from "./LoadingSpinner";
-import MetricCard from "./MetricCard";
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import LoadingSpinner from './LoadingSpinner';
+import MetricCard from './MetricCard';
 
-const RouteMap = dynamic(() => import("./RouteMap"), {
+const RouteMap = dynamic(() => import('./RouteMap'), {
   ssr: false,
   loading: () => <LoadingSpinner text="Memuat Peta..." />,
 });
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api/v1";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:5000/api/v1';
 
 interface Location {
   name: string;
@@ -31,7 +31,7 @@ interface TrafficSegment {
   end_idx: number;
   start_name: string;
   end_name: string;
-  status: "clear" | "warning" | "congested";
+  status: 'clear' | 'warning' | 'congested';
   distance_km: number;
 }
 
@@ -44,55 +44,55 @@ interface RouteResult {
   fuel_saved_pct: number;
 }
 
-const EMPTY_DEST = (): Location => ({ name: "", lat: "", lng: "" });
+const EMPTY_DEST = (): Location => ({ name: '', lat: '', lng: '' });
 
 const LOCATION_PRESETS = [
-  { name: "Gudang Bandar Lampung", lat: "-5.4292", lng: "105.2611" },
-  { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
-  { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
-  { name: "Pasar Kotabumi", lat: "-4.8286", lng: "104.8829" },
-  { name: "Sentra Kopi Liwa", lat: "-5.0345", lng: "104.0754" },
+  { name: 'Gudang Bandar Lampung', lat: '-5.4292', lng: '105.2611' },
+  { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+  { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+  { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
+  { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
 ];
 
 const SIMULATION_SCENARIOS = [
   {
-    name: "Kemacetan: Bandar Lampung - Bakauheni - Metro",
-    origin: { name: "Gudang Bandar Lampung", lat: "-5.4292", lng: "105.2611" },
+    name: 'Kemacetan: Bandar Lampung - Bakauheni - Metro',
+    origin: { name: 'Gudang Bandar Lampung', lat: '-5.4292', lng: '105.2611' },
     destinations: [
-      { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
-      { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
+      { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
     ],
   },
   {
-    name: "Renovasi: Bakauheni - Metro - Kotabumi - Liwa",
-    origin: { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
+    name: 'Renovasi: Bakauheni - Metro - Kotabumi - Liwa',
+    origin: { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
     destinations: [
-      { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
-      { name: "Pasar Kotabumi", lat: "-4.8286", lng: "104.8829" },
-      { name: "Sentra Kopi Liwa", lat: "-5.0345", lng: "104.0754" },
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+      { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
+      { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
     ],
   },
   {
-    name: "Optimasi Rute Zig-Zag Lampung",
-    origin: { name: "Gudang Bandar Lampung", lat: "-5.4292", lng: "105.2611" },
+    name: 'Optimasi Rute Zig-Zag Lampung',
+    origin: { name: 'Gudang Bandar Lampung', lat: '-5.4292', lng: '105.2611' },
     destinations: [
-      { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
-      { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
-      { name: "Pasar Kotabumi", lat: "-4.8286", lng: "104.8829" },
-      { name: "Sentra Kopi Liwa", lat: "-5.0345", lng: "104.0754" },
+      { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+      { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
+      { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
     ],
   },
 ];
 
 export default function RouteTab({ onError }: { onError: (msg: string) => void }) {
   const [origin, setOrigin] = useState<Location>({
-    name: "Gudang Bandar Lampung",
-    lat: "-5.4292",
-    lng: "105.2611",
+    name: 'Gudang Bandar Lampung',
+    lat: '-5.4292',
+    lng: '105.2611',
   });
   const [destinations, setDestinations] = useState<Location[]>([
-    { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
-    { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
+    { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+    { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
   ]);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<RouteResult | null>(null);
@@ -141,7 +141,7 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
 
   const handleSubmit = async () => {
     if (destinations.length < 2) {
-      onError("Minimal 2 titik tujuan diperlukan.");
+      onError('Minimal 2 titik tujuan diperlukan.');
       return;
     }
 
@@ -151,8 +151,8 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
 
     try {
       const res = await fetch(`${API_BASE}/route/optimize`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           origin: { name: origin.name, lat: parseFloat(origin.lat), lng: parseFloat(origin.lng) },
           destinations: destinations.map((destination) => ({
@@ -165,19 +165,21 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.detail || err.message || "Request failed");
+        throw new Error(err.detail || err.message || 'Request failed');
       }
 
       setResult(await res.json());
     } catch (err: any) {
-      onError(err.message || "Gagal menghubungi server.");
+      onError(err.message || 'Gagal menghubungi server.');
     } finally {
       setLoading(false);
     }
   };
 
   const visibleTraffic =
-    simulationStep === null ? result?.traffic_segments : result?.traffic_segments.slice(0, simulationStep);
+    simulationStep === null
+      ? result?.traffic_segments
+      : result?.traffic_segments.slice(0, simulationStep);
 
   return (
     <div className="animate-fade-in-up flex flex-col gap-8">
@@ -201,13 +203,12 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
               className="absolute bottom-[22px] left-[39px] z-[400] h-[65px] rounded-[16px] bg-[var(--color-primary)] px-[21px] text-[18px] sm:text-[24px] text-white tracking-[1.2px] transition hover:bg-[var(--color-primary-dark)] disabled:opacity-80"
             >
               {simulationStep === null
-                ? "Simulasikan Rute"
+                ? 'Simulasikan Rute'
                 : `Rute ${Math.min(simulationStep, result.traffic_segments.length)} / ${result.traffic_segments.length}`}
             </button>
           </div>
         </section>
       )}
-
       {!result && (
         <section className="relative h-[359px] overflow-hidden rounded-[8px]">
           <RouteMap origin={origin} destinations={destinations} />
@@ -233,7 +234,9 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
                   {stop.order}. {stop.name}
                 </div>
                 {idx < result.optimal_sequence.length - 1 && (
-                  <span className="route-arrow" aria-hidden="true">-&gt;</span>
+                  <span className="route-arrow" aria-hidden="true">
+                    -&gt;
+                  </span>
                 )}
               </div>
             ))}
@@ -266,7 +269,9 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
       </section>
 
       <section className="figma-panel min-h-[349px] p-6 sm:p-8">
-        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">Kolom Input Data</h2>
+        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">
+          Kolom Input Data
+        </h2>
 
         <div className="space-y-5">
           <div>
@@ -291,21 +296,43 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
               </select>
             </div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              <input className="input-field text-field" placeholder="Nama lokasi" value={origin.name} onChange={(e) => updateOrigin("name", e.target.value)} />
-              <input className="input-field coordinate-field" placeholder="Latitude" value={origin.lat} onChange={(e) => updateOrigin("lat", e.target.value)} />
-              <input className="input-field coordinate-field" placeholder="Longitude" value={origin.lng} onChange={(e) => updateOrigin("lng", e.target.value)} />
+              <input
+                className="input-field text-field"
+                placeholder="Nama lokasi"
+                value={origin.name}
+                onChange={(e) => updateOrigin('name', e.target.value)}
+              />
+              <input
+                className="input-field coordinate-field"
+                placeholder="Latitude"
+                value={origin.lat}
+                onChange={(e) => updateOrigin('lat', e.target.value)}
+              />
+              <input
+                className="input-field coordinate-field"
+                placeholder="Longitude"
+                value={origin.lng}
+                onChange={(e) => updateOrigin('lng', e.target.value)}
+              />
             </div>
           </div>
 
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <label className="text-xs text-[var(--color-text-muted)]">Titik Tujuan ({destinations.length})</label>
-              <button className="btn-secondary" onClick={addDest}>Tambah Tujuan</button>
+              <label className="text-xs text-[var(--color-text-muted)]">
+                Titik Tujuan ({destinations.length})
+              </label>
+              <button className="btn-secondary" onClick={addDest}>
+                Tambah Tujuan
+              </button>
             </div>
 
             <div className="space-y-3">
               {destinations.map((dest, idx) => (
-                <div key={idx} className="destination-card rounded-[10px] border-2 border-[var(--color-primary)] p-3">
+                <div
+                  key={idx}
+                  className="destination-card rounded-[10px] border-2 border-[var(--color-primary)] p-3"
+                >
                   <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                     <span className="text-xs text-[var(--color-primary)]">Tujuan {idx + 1}</span>
                     <div className="flex items-center gap-2">
@@ -328,15 +355,34 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
                           </option>
                         ))}
                       </select>
-                      <button className="btn-danger" onClick={() => removeDest(idx)} title="Hapus tujuan">
+                      <button
+                        className="btn-danger"
+                        onClick={() => removeDest(idx)}
+                        title="Hapus tujuan"
+                      >
                         Hapus
                       </button>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                    <input className="input-field text-field !py-1.5" placeholder="Nama lokasi" value={dest.name} onChange={(e) => updateDest(idx, "name", e.target.value)} />
-                    <input className="input-field coordinate-field !py-1.5" placeholder="Latitude" value={dest.lat} onChange={(e) => updateDest(idx, "lat", e.target.value)} />
-                    <input className="input-field coordinate-field !py-1.5" placeholder="Longitude" value={dest.lng} onChange={(e) => updateDest(idx, "lng", e.target.value)} />
+                    <input
+                      className="input-field text-field !py-1.5"
+                      placeholder="Nama lokasi"
+                      value={dest.name}
+                      onChange={(e) => updateDest(idx, 'name', e.target.value)}
+                    />
+                    <input
+                      className="input-field coordinate-field !py-1.5"
+                      placeholder="Latitude"
+                      value={dest.lat}
+                      onChange={(e) => updateDest(idx, 'lat', e.target.value)}
+                    />
+                    <input
+                      className="input-field coordinate-field !py-1.5"
+                      placeholder="Longitude"
+                      value={dest.lng}
+                      onChange={(e) => updateDest(idx, 'lng', e.target.value)}
+                    />
                   </div>
                 </div>
               ))}
@@ -347,8 +393,12 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
 
       {loading && <LoadingSpinner text="Mengkalkulasi rute optimal dengan AI..." />}
 
-      <button className="btn-primary h-[65px] w-full rounded-[10px] text-[20px] sm:text-[24px]" onClick={handleSubmit} disabled={loading}>
-        {loading ? "Menganalisa Rute..." : "Analisa Rute"}
+      <button
+        className="btn-primary h-[65px] w-full rounded-[10px] text-[20px] sm:text-[24px]"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
+        {loading ? 'Menganalisa Rute...' : 'Analisa Rute'}
       </button>
     </div>
   );
