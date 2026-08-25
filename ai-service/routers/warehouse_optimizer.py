@@ -1,4 +1,5 @@
-outer for the Warehouse Optimization endpoint.
+"""
+Router for the Warehouse Optimization endpoint.
 POST /optimize-warehouse
 """
 
@@ -12,6 +13,7 @@ from schemas.warehouse_schema import (
 from services.bin_packing import allocate_warehouse
 
 router = APIRouter(tags=["Warehouse Optimization"])
+
 
 @router.post(
     "/optimize-warehouse",
@@ -35,3 +37,39 @@ async def optimize_warehouse(
     3. Run FFD bin-packing algorithm.
     4. Return rack assignments + utilisation metrics.
     """
+
+    # --- 1. Warehouse volume -------------------------------------------------
+    total_volume = payload.warehouse_dim.total_volume_m3
+
+    # --- 2. Prepare items ----------------------------------------------------
+    items = [
+        {
+            "name": item.name,
+            "qty": item.qty,
+            "size": item.size.value,
+            "weight_kg": item.weight_kg,
+        }
+        for item in payload.items
+    ]
+
+    # --- 3. Run allocator ----------------------------------------------------
+    try:
+        result = allocate_warehouse(total_volume, items)
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Warehouse optimization failed: {exc}",
+        ) from exc
+
+    # --- 4. Build response ---------------------------------------------------
+    rack_allocations = [
+        RackAllocation(**alloc) for alloc in result.allocations
+    ]
+
+    return WarehouseOptimizeResponse(
+        rack_allocation=rack_allocations,
+        space_utilization_pct=result.space_utilization_pct,
+        total_racks_used=result.total_racks_used,
+        remaining_capacity_pct=result.remaining_capacity_pct,
+        rack_grid=result.rack_grid,
+    )
