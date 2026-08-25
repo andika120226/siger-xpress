@@ -187,3 +187,37 @@ function ViewFitter({ points }: { points: [number, number][] }) {
   }, [points, map]);
   return null;
 }
+export default function RouteMap({ origin, destinations, optimalSequence, trafficSegments }: RouteMapProps) {
+  const allPoints: [number, number][] = [];
+  const allNames: string[] = [];
+
+  const oLat = parseFloat(origin.lat as string) || 0;
+  const oLng = parseFloat(origin.lng as string) || 0;
+  if (!isNaN(oLat) && !isNaN(oLng)) {
+    allPoints.push([oLat, oLng]);
+    allNames.push(origin.name);
+  }
+
+  destinations.forEach(d => {
+    const dLat = parseFloat(d.lat as string) || 0;
+    const dLng = parseFloat(d.lng as string) || 0;
+    if (!isNaN(dLat) && !isNaN(dLng)) {
+      allPoints.push([dLat, dLng]);
+      allNames.push(d.name);
+    }
+  });
+
+  const center: [number, number] = allPoints.length > 0 ? allPoints[0] : [-5.4292, 105.2611];
+
+  // Pre-analysis preview route
+  const manualRoute: [number, number][] = [];
+  if (allPoints.length > 0) {
+    allPoints.forEach(p => manualRoute.push(p));
+    if (allPoints.length > 1) manualRoute.push(allPoints[0]);
+  }
+
+  const getTrafficColor = (status: string) => {
+    if (status === "congested") return "#FF3366"; // Red/Pink
+    if (status === "warning") return "#FFD700";   // Yellow
+    return "#10B981"; // Emerald Green for Clear (was cyan)
+  };
