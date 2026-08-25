@@ -745,3 +745,40 @@ select.input-field {
   font-size: 12px;
   color: var(--color-text-muted);
 }
+.vehicle-match-card p {
+  color: #374151;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.vehicle-score-good {
+  color: #00bc45;
+}
+
+.vehicle-score-warn {
+  color: #b77900;
+}
+
+.vehicle-score-bad {
+  color: #dc2626;
+}
+
+.forecast-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.forecast-metric-card {
+  min-height: 139px;
+  border: 2px solid #0052d2;
+  border-radius: 10px;
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px;
+  text-align: center;
+}
