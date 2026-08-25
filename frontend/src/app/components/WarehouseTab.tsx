@@ -19,3 +19,18 @@ interface RackAllocation {
   zone: string;
 }
 
+nterface WarehouseResult {
+  rack_allocation: RackAllocation[];
+  space_utilization_pct: number;
+  total_racks_used: number;
+  remaining_capacity_pct: number;
+  rack_grid: { id: string; zone: string }[][];
+}
+
+type WarehouseView = "visual" | "detail";
+
+const EMPTY_ITEM = (): CargoItem => ({ name: "", qty: "", size: "small", weight_kg: "" });
+
+const SIMULATION_SCENARIOS = [
+  
+]
