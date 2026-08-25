@@ -147,3 +147,25 @@ function DynamicSegment({
     </Polyline>
   );
 }
+// Custom SVG Marker Creator
+const createCustomIcon = (color: string, isOrigin: boolean) => {
+  const pinSvg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36">
+      <ellipse cx="12" cy="22" rx="4" ry="1.5" fill="#000000" opacity="0.3"/>
+      <path fill="${color}" stroke="#ffffff" stroke-width="1.5" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      ${isOrigin ? `<circle cx="12" cy="9" r="3" fill="#ffffff"/>` : ''}
+    </svg>
+  `;
+
+  return L.divIcon({
+    html: pinSvg,
+    className: 'custom-leaflet-pin',
+    iconSize: [36, 36],
+    iconAnchor: [18, 36],
+    popupAnchor: [0, -36],
+    tooltipAnchor: [0, -36],
+  });
+};
+
+const originIcon = createCustomIcon('#10B981', true);
+const destinationIcon = createCustomIcon('#0EA5E9', false);
