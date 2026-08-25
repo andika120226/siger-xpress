@@ -96,3 +96,24 @@ body {
 .animate-fade-in-up {
   animation: fadeInUp 0.4s ease-out forwards;
 }
+/* ======================================================== */
+/* Form Styles                                              */
+/* ======================================================== */
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 2px solid #0052d2;
+  border-radius: 10px;
+  color: #000000;
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  font-family: var(--font-michroma), sans-serif;
+}
+
+.input-field:focus {
+  border-color: #003fa3;
+  box-shadow: 0 0 0 3px rgba(0, 82, 210, 0.15);
+}
