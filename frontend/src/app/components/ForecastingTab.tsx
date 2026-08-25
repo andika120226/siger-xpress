@@ -122,3 +122,30 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
       setLoading(false);
     }
   };
+  const chartData = result?.forecast_data || [];
+  const chartScaleMax = Math.max(100, Math.ceil(metrics.maxVolume / 25) * 25);
+  const yAxisTicks = [1, 0.75, 0.5, 0.25, 0].map((ratio) => chartScaleMax * ratio);
+  const averageLinePosition = result
+    ? Math.min(100, Math.max(0, (result.average_volume_tons / chartScaleMax) * 100))
+    : 0;
+
+  return (
+    <div className="animate-fade-in-up flex flex-col gap-8">
+      <section className="flex flex-col gap-2">
+        <h1 className="text-[28px] sm:text-[40px] leading-normal text-[var(--color-primary)] tracking-[2px]">
+          Hasil Demand Forecasting
+        </h1>
+      </section>
+
+      <section className="forecast-metric-grid">
+        <article className="forecast-metric-card">
+          <span>Total Estimasi Volume</span>
+          <strong>{formatNumber(metrics.totalVolume)} <small>ton</small></strong>
+        </article>
+        <article className="forecast-metric-card">
+          <span>Bulan Pencapaian Tertinggi</span>
+          <strong>
+            {metrics.peakMonth} <small>({formatNumber(metrics.peakVolume, 1)} ton)</small>
+          </strong>
+        </article>
+      </section>
