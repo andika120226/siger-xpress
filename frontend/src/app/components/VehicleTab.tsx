@@ -100,5 +100,15 @@ const SIMULATION_SCENARIOS = [
       { name: "Surat Penting", type: "standard", weight_kg: "5" },
     ],
   },
-
+    {
+    name: "Risiko Kontaminasi Silang",
+    vehicles: [
+      { name: "Box Truck Bersama", type: "box", max_weight_kg: "2000" },
+    ],
+    cargo: [
+      { name: "Keripik Pisang & Beras", type: "dry_food", weight_kg: "500" },
+      { name: "Pupuk Kimia Pertanian", type: "hazardous", weight_kg: "800" },
+      { name: "Kopi Kemasan UKM", type: "dry_food", weight_kg: "200" },
+    ],
+  },
 ]
