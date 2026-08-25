@@ -53,3 +53,33 @@ const LOCATION_PRESETS = [
   { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
   { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
 ];
+
+const SIMULATION_SCENARIOS = [
+  {
+    name: 'Kemacetan: Bandar Lampung - Bakauheni - Metro',
+    origin: { name: 'Gudang Bandar Lampung', lat: '-5.4292', lng: '105.2611' },
+    destinations: [
+      { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+    ],
+  },
+  {
+    name: 'Renovasi: Bakauheni - Metro - Kotabumi - Liwa',
+    origin: { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+    destinations: [
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+      { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
+      { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
+    ],
+  },
+  {
+    name: 'Optimasi Rute Zig-Zag Lampung',
+    origin: { name: 'Gudang Bandar Lampung', lat: '-5.4292', lng: '105.2611' },
+    destinations: [
+      { name: 'Hub Bakauheni', lat: '-5.8708', lng: '105.7533' },
+      { name: 'Toko Metro', lat: '-5.1131', lng: '105.3067' },
+      { name: 'Pasar Kotabumi', lat: '-4.8286', lng: '104.8829' },
+      { name: 'Sentra Kopi Liwa', lat: '-5.0345', lng: '104.0754' },
+    ],
+  },
+];
