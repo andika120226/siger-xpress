@@ -104,3 +104,25 @@ useEffect(() => {
             </span>
           </div>
         </header>
+  <main className="w-full">
+          {activeTab === "route" && (
+            <RouteTab onError={(msg) => triggerToast(msg, "error")} />
+          )}
+          {activeTab === "warehouse" && (
+            <WarehouseTab onError={(msg) => triggerToast(msg, "error")} />
+          )}
+          {activeTab === "vehicle" && (
+            <VehicleTab onError={(msg) => triggerToast(msg, "error")} />
+          )}
+          {activeTab === "forecasting" && (
+            <ForecastingTab onError={(msg) => triggerToast(msg, "error")} />
+          )}
+        </main>
+
+        <footer className="text-center py-4 text-xs text-[var(--color-text-muted)] font-medium">
+          SIGER-XPRESS AI &copy; 2026. COMPFEST 18 AI Innovation Challenge (AIC).
+        </footer>
+      </div>
+    </div>
+  );
+}
