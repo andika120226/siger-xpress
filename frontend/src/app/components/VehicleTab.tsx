@@ -192,4 +192,59 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
     updated[idx] = { ...updated[idx], [field]: value };
     setVehicles(updated);
   };
+    const addCargo = () => setCargo([...cargo, { name: "", type: "standard", weight_kg: "" }]);
+  const removeCargo = (idx: number) => {
+    setResult(null);
+    setCargo(cargo.filter((_, i) => i !== idx));
+  };
+  const updateCargo = (idx: number, field: keyof CargoInput, value: string) => {
+    setResult(null);
+    const updated = [...cargo];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setCargo(updated);
+  };
+
+  const handleSubmit = async () => {
+    if (vehicles.length < 1) {
+      onError("Minimal 1 kendaraan diperlukan.");
+      return;
+    }
+    if (cargo.length < 1) {
+      onError("Minimal 1 kargo diperlukan.");
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+
+    try {
+      const res = await fetch(${API_BASE}/vehicle/match, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          vehicles: vehicles.map((vehicle) => ({
+            name: vehicle.name,
+            type: vehicle.type,
+            max_weight_kg: parseFloat(vehicle.max_weight_kg),
+          })),
+          cargo: cargo.map((item) => ({
+            name: item.name,
+            type: item.type,
+            weight_kg: parseFloat(item.weight_kg),
+          })),
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || err.message || "Request failed");
+      }
+
+      setResult(await res.json());
+    } catch (err: any) {
+      onError(err.message || "Gagal menghubungi server.");
+    } finally {
+      setLoading(false);
+    }
+  };
 }
