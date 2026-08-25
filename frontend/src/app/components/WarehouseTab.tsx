@@ -118,4 +118,23 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
         .some((value) => value.toLowerCase().includes(term))
     );
   }, [result, searchTerm]);
+  const paginatedAllocations = filteredAllocations.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
+  const addItem = () => setItems([...items, EMPTY_ITEM()]);
+
+  const removeItem = (idx: number) => {
+    setResult(null);
+    setItems(items.filter((_, i) => i !== idx));
+  };
+
+  const updateItem = (idx: number, field: keyof CargoItem, value: string) => {
+    setResult(null);
+    const updated = [...items];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setItems(updated);
+  };
+
 }
