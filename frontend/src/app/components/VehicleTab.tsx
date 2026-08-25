@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:5000/api/v1";
 
