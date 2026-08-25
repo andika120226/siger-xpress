@@ -175,3 +175,35 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
       setLoading(false);
     }
   };
+
+  const visibleTraffic =
+    simulationStep === null ? result?.traffic_segments : result?.traffic_segments.slice(0, simulationStep);
+
+  return (
+    <div className="animate-fade-in-up flex flex-col gap-8">
+      {result && (
+        <section className="flex flex-col gap-2">
+          <h1 className="text-[28px] sm:text-[40px] leading-normal text-[var(--color-primary)] tracking-[2px]">
+            Hasil Analisa Rute X
+          </h1>
+
+          <div className="relative h-[431px] overflow-hidden rounded-[8px]">
+            <RouteMap
+              origin={origin}
+              destinations={destinations}
+              optimalSequence={result.optimal_sequence}
+              trafficSegments={visibleTraffic}
+            />
+
+            <button
+              onClick={() => setSimulationStep(1)}
+              disabled={simulationStep !== null}
+              className="absolute bottom-[22px] left-[39px] z-[400] h-[65px] rounded-[16px] bg-[var(--color-primary)] px-[21px] text-[18px] sm:text-[24px] text-white tracking-[1.2px] transition hover:bg-[var(--color-primary-dark)] disabled:opacity-80"
+            >
+              {simulationStep === null
+                ? "Simulasikan Rute"
+                : `Rute ${Math.min(simulationStep, result.traffic_segments.length)} / ${result.traffic_segments.length}`}
+            </button>
+          </div>
+        </section>
+      )}
