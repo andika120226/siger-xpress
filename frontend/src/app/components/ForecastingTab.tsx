@@ -202,3 +202,37 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
           </>
         )}
       </section>
+      <section className="figma-panel forecast-recommendation-panel">
+        <h2>Rekomedasi Strategi Optimal</h2>
+
+        {!result && !loading && <div className="forecast-empty-state compact">Tidak Ada Data</div>}
+
+        {result && (
+          <div className="forecast-recommendation-list">
+            {result.recommendations.map((recommendation, idx) => (
+              <article key={`${recommendation}-${idx}`} className="forecast-recommendation-item">
+                <span>{idx + 1}</span>
+                <p>{recommendation}</p>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="figma-panel grid min-h-[111px] grid-cols-1 items-center gap-4 px-6 py-6 sm:grid-cols-[minmax(260px,1fr)_minmax(320px,560px)] sm:px-[48px]">
+        <h2 className="text-[20px] sm:text-[24px] tracking-[1.2px]">Skenario Simulasi</h2>
+        <select
+          className="input-field select-field h-[60px] text-center text-[16px] sm:text-[20px]"
+          onChange={(event) => applyScenario(event.target.value)}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Pilih Skenario Simulasi
+          </option>
+          {SIMULATION_SCENARIOS.map((scenario, idx) => (
+            <option key={scenario.name} value={idx}>
+              {scenario.name}
+            </option>
+          ))}
+        </select>
+      </section>
