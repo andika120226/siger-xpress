@@ -24,3 +24,21 @@
   --color-warning: #f59e0b;
   --color-error: #ef4444;
 }
+
+/* ======================================================== */
+/* Base Styles                                              */
+/* ======================================================== */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-michroma), system-ui, -apple-system, sans-serif;
+}
+
+.font-audiowide {
+  font-family: var(--font-audiowide), system-ui, sans-serif;
+}
+
+.font-michroma {
+  font-family: var(--font-michroma), system-ui, sans-serif;
+}
