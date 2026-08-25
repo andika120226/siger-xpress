@@ -59,4 +59,18 @@ const SIMULATION_SCENARIOS = [
       { name: "Dokumen Pengiriman", type: "standard", weight_kg: "5" },
     ],
   },
+   {
+    name: "Elektronik & Dokumen",
+    vehicles: [
+      { name: "Box Truck Delta", type: "box", max_weight_kg: "3000" },
+      { name: "Motor Kurir Epsilon", type: "motorcycle", max_weight_kg: "50" },
+      { name: "Motor Kurir Zeta", type: "motorcycle", max_weight_kg: "30" },
+    ],
+    cargo: [
+      { name: "TV LED 55 Inch", type: "fragile", weight_kg: "500" },
+      { name: "Laptop & Aksesoris", type: "fragile", weight_kg: "200" },
+      { name: "Surat Kontrak", type: "standard", weight_kg: "3" },
+      { name: "Faktur & Invoice", type: "standard", weight_kg: "2" },
+    ],
+  },
 ]
