@@ -16,6 +16,7 @@ interface CargoInput {
   type: string;
   weight_kg: string;
 }
+
 interface MatchItem {
   cargo: string;
   assigned_vehicle: string;
@@ -29,6 +30,7 @@ interface MatchResult {
   unmatched_cargo: string[];
   fleet_utilization_pct: number;
 }
+
 const VEHICLE_TYPES = [
   { value: "refrigerated", label: "Truk Pendingin" },
   { value: "box", label: "Box Truck" },
@@ -45,8 +47,9 @@ const CARGO_TYPES = [
   { value: "hazardous", label: "Berbahaya / Kimia" },
   { value: "standard", label: "Standar" },
 ];
+
 const SIMULATION_SCENARIOS = [
-   {
+  {
     name: "Pengiriman Makanan Beku",
     vehicles: [
       { name: "Truk Pendingin Alpha", type: "refrigerated", max_weight_kg: "5000" },
@@ -59,7 +62,7 @@ const SIMULATION_SCENARIOS = [
       { name: "Dokumen Pengiriman", type: "standard", weight_kg: "5" },
     ],
   },
-   {
+  {
     name: "Elektronik & Dokumen",
     vehicles: [
       { name: "Box Truck Delta", type: "box", max_weight_kg: "3000" },
@@ -73,7 +76,7 @@ const SIMULATION_SCENARIOS = [
       { name: "Faktur & Invoice", type: "standard", weight_kg: "2" },
     ],
   },
-    {
+  {
     name: "Logistik Campuran",
     vehicles: [
       { name: "Truk Pendingin Eta", type: "refrigerated", max_weight_kg: "5000" },
@@ -88,7 +91,7 @@ const SIMULATION_SCENARIOS = [
       { name: "Dokumen Legal", type: "standard", weight_kg: "5" },
     ],
   },
-   {
+  {
     name: "Armada Tidak Cocok",
     vehicles: [
       { name: "Box Truck Mu", type: "box", max_weight_kg: "1000" },
@@ -100,7 +103,7 @@ const SIMULATION_SCENARIOS = [
       { name: "Surat Penting", type: "standard", weight_kg: "5" },
     ],
   },
-    {
+  {
     name: "Risiko Kontaminasi Silang",
     vehicles: [
       { name: "Box Truck Bersama", type: "box", max_weight_kg: "2000" },
@@ -118,6 +121,7 @@ const scoreClass = (score: number) => {
   if (score >= 0.7) return "vehicle-score-warn";
   return "vehicle-score-bad";
 };
+
 const vehicleIconType = (vehicleName: string) => {
   const name = vehicleName.toLowerCase();
   if (name.includes("motor")) return "motorcycle";
@@ -158,6 +162,7 @@ function VehicleIcon({ type = "truck" }: { type?: string }) {
     </svg>
   );
 }
+
 export default function VehicleTab({ onError }: { onError: (msg: string) => void }) {
   const [vehicles, setVehicles] = useState<VehicleInput[]>([
     { name: "Truk Pendingin Alpha", type: "refrigerated", max_weight_kg: "5000" },
@@ -169,7 +174,7 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
     { name: "TV LED", type: "fragile", weight_kg: "500" },
     { name: "Dokumen", type: "standard", weight_kg: "5" },
   ]);
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<MatchResult | null>(null);
 
   const utilization = result?.fleet_utilization_pct || 0;
@@ -192,7 +197,8 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
     updated[idx] = { ...updated[idx], [field]: value };
     setVehicles(updated);
   };
-    const addCargo = () => setCargo([...cargo, { name: "", type: "standard", weight_kg: "" }]);
+
+  const addCargo = () => setCargo([...cargo, { name: "", type: "standard", weight_kg: "" }]);
   const removeCargo = (idx: number) => {
     setResult(null);
     setCargo(cargo.filter((_, i) => i !== idx));
@@ -218,7 +224,7 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
     setResult(null);
 
     try {
-      const res = await fetch(${API_BASE}/vehicle/match, {
+      const res = await fetch(`${API_BASE}/vehicle/match`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -247,7 +253,8 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
       setLoading(false);
     }
   };
-  eturn (
+
+  return (
     <div className="animate-fade-in-up flex flex-col gap-8">
       <section className="flex flex-col gap-2">
         <h1 className="text-[28px] sm:text-[40px] leading-normal text-[var(--color-primary)] tracking-[2px]">
@@ -255,7 +262,7 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
         </h1>
         <div className="vehicle-progress">
           <div className="vehicle-progress-track">
-            <div className="vehicle-progress-fill" style={{ width: ${Math.min(100, utilization)}% }} />
+            <div className="vehicle-progress-fill" style={{ width: `${Math.min(100, utilization)}%` }} />
           </div>
           <span>{emptyPct.toFixed(0)}% empty</span>
         </div>
@@ -282,7 +289,7 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
               {result.matches.map((match, idx) => {
                 const matched = match.status === "Matched" && match.match_score >= 0.7;
                 return (
-                  <article key={${match.cargo}-${idx}} className={vehicle-match-card ${matched ? "is-matched" : "is-unmatched"}}>
+                  <article key={`${match.cargo}-${idx}`} className={`vehicle-match-card ${matched ? "is-matched" : "is-unmatched"}`}>
                     <div>
                       <span className="vehicle-card-kicker">Logistik</span>
                       <h3>{match.cargo}</h3>
@@ -307,4 +314,99 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
           </div>
         )}
       </section>
+
+      <section className="figma-panel grid min-h-[111px] grid-cols-1 items-center gap-4 px-6 py-6 sm:grid-cols-[minmax(260px,1fr)_minmax(320px,560px)] sm:px-[48px]">
+        <h2 className="text-[20px] sm:text-[24px] tracking-[1.2px]">Skenario Simulasi</h2>
+        <select
+          className="input-field select-field h-[60px] text-center text-[16px] sm:text-[20px]"
+          onChange={(event) => {
+            if (!event.target.value) return;
+            setResult(null);
+            const scenario = SIMULATION_SCENARIOS[parseInt(event.target.value)];
+            setVehicles(scenario.vehicles);
+            setCargo(scenario.cargo);
+          }}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Pilih Skenario Simulasi
+          </option>
+          {SIMULATION_SCENARIOS.map((scenario, idx) => (
+            <option key={scenario.name} value={idx}>
+              {scenario.name}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      <section className="figma-panel min-h-[349px] p-6 sm:p-8">
+        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">Kolom Input Data</h2>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div>
+            <div className="mb-2 flex items-center justify-between">
+              <label className="text-xs text-[var(--color-text-muted)]">Armada Kendaraan ({vehicles.length})</label>
+              <button className="btn-secondary" onClick={addVehicle}>Tambah Armada</button>
+            </div>
+            <div className="space-y-3">
+              {vehicles.map((vehicle, idx) => (
+                <div key={idx} className="destination-card rounded-[10px] border-2 border-[var(--color-primary)] p-3">
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="flex items-center gap-2 text-xs text-[var(--color-primary)]">
+                      <span className="vehicle-form-icon"><VehicleIcon type={vehicle.type} /></span>
+                      Armada {idx + 1}
+                    </span>
+                    <button className="btn-danger" onClick={() => removeVehicle(idx)} title="Hapus armada">Hapus</button>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <input className="input-field text-field !py-1.5" placeholder="Nama kendaraan" value={vehicle.name} onChange={(event) => updateVehicle(idx, "name", event.target.value)} />
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      <select className="input-field select-field !py-1.5 text-xs" value={vehicle.type} onChange={(event) => updateVehicle(idx, "type", event.target.value)}>
+                        {VEHICLE_TYPES.map((type) => (
+                          <option key={type.value} value={type.value}>{type.label}</option>
+                        ))}
+                      </select>
+                      <input className="input-field coordinate-field !py-1.5" placeholder="Maks berat (Kg)" value={vehicle.max_weight_kg} onChange={(event) => updateVehicle(idx, "max_weight_kg", event.target.value)} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-2 flex items-center justify-between">
+              <label className="text-xs text-[var(--color-text-muted)]">Logistik / Kargo ({cargo.length})</label>
+              <button className="btn-secondary" onClick={addCargo}>Tambah Logistik</button>
+            </div>
+            <div className="space-y-3">
+              {cargo.map((item, idx) => (
+                <div key={idx} className="destination-card rounded-[10px] border-2 border-[var(--color-primary)] p-3">
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="text-xs text-[var(--color-primary)]">Logistik {idx + 1}</span>
+                    <button className="btn-danger" onClick={() => removeCargo(idx)} title="Hapus logistik">Hapus</button>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    <input className="input-field text-field !py-1.5" placeholder="Nama logistik" value={item.name} onChange={(event) => updateCargo(idx, "name", event.target.value)} />
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                      <select className="input-field select-field !py-1.5 text-xs" value={item.type} onChange={(event) => updateCargo(idx, "type", event.target.value)}>
+                        {CARGO_TYPES.map((type) => (
+                          <option key={type.value} value={type.value}>{type.label}</option>
+                        ))}
+                      </select>
+                      <input className="input-field coordinate-field !py-1.5" placeholder="Berat (Kg)" value={item.weight_kg} onChange={(event) => updateCargo(idx, "weight_kg", event.target.value)} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <button className="btn-primary h-[65px] w-full rounded-[10px] text-[16px] sm:text-[24px]" onClick={handleSubmit} disabled={loading}>
+        {loading ? "Menganalisa Kecocokan..." : "Analisa Kecocokan Armada dan Logistik"}
+      </button>
+    </div>
+  );
 }
