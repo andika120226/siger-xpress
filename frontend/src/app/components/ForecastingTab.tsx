@@ -72,3 +72,53 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
       { totalVolume: 0, peakMonth: "-", peakVolume: 0, maxVolume: 1 }
     );
   }, [result]);
+  const applyCommodityPreset = (value: string) => {
+    setCommodityPreset(value);
+    setCommodity(value);
+    setResult(null);
+  };
+
+  const applyScenario = (scenarioIndex: string) => {
+    if (!scenarioIndex) return;
+    const scenario = SIMULATION_SCENARIOS[parseInt(scenarioIndex)];
+    setCommodityPreset(scenario.commodity);
+    setCommodity(scenario.commodity);
+    setMonths(String(scenario.months));
+    setResult(null);
+  };
+
+  const handleSubmit = async () => {
+    const parsedMonths = parseInt(months);
+
+    if (!commodity.trim()) {
+      onError("Silakan masukkan nama komoditas atau lintasan.");
+      return;
+    }
+
+    if (Number.isNaN(parsedMonths) || parsedMonths < 3 || parsedMonths > 24) {
+      onError("Prediksi bulan harus berada di rentang 3 sampai 24 bulan.");
+      return;
+    }
+
+    setLoading(true);
+    setResult(null);
+
+    try {
+      const res = await fetch(`${API_BASE}/demand/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ commodity, months: parsedMonths }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.detail || err.message || "Request failed");
+      }
+
+      setResult(await res.json());
+    } catch (err: any) {
+      onError(err.message || "Gagal menghubungi server.");
+    } finally {
+      setLoading(false);
+    }
+  };
