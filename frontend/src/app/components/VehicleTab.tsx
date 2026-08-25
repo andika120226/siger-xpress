@@ -247,4 +247,64 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
       setLoading(false);
     }
   };
+  eturn (
+    <div className="animate-fade-in-up flex flex-col gap-8">
+      <section className="flex flex-col gap-2">
+        <h1 className="text-[28px] sm:text-[40px] leading-normal text-[var(--color-primary)] tracking-[2px]">
+          Armada
+        </h1>
+        <div className="vehicle-progress">
+          <div className="vehicle-progress-track">
+            <div className="vehicle-progress-fill" style={{ width: ${Math.min(100, utilization)}% }} />
+          </div>
+          <span>{emptyPct.toFixed(0)}% empty</span>
+        </div>
+      </section>
+
+      <section className="figma-panel vehicle-match-panel">
+        <h2 className="vehicle-section-title">Pencocokan Muatan Kendaraan</h2>
+
+        {loading && <LoadingSpinner text="Mencocokkan armada dengan logistik..." />}
+
+        {!result && !loading && (
+          <div className="vehicle-empty-state">Belum Ada Data</div>
+        )}
+
+        {result && !loading && (
+          <div className="vehicle-results">
+            {hasMismatch && (
+              <div className="vehicle-mismatch-note">
+                Note: armada dan logistik tidak cocok untuk sebagian muatan. Periksa kapasitas, jenis kendaraan, atau risiko kontaminasi sebelum pengiriman.
+              </div>
+            )}
+
+            <div className="vehicle-result-grid">
+              {result.matches.map((match, idx) => {
+                const matched = match.status === "Matched" && match.match_score >= 0.7;
+                return (
+                  <article key={${match.cargo}-${idx}} className={vehicle-match-card ${matched ? "is-matched" : "is-unmatched"}}>
+                    <div>
+                      <span className="vehicle-card-kicker">Logistik</span>
+                      <h3>{match.cargo}</h3>
+                    </div>
+                    <div className="vehicle-card-route">
+                      <span className="vehicle-card-icon">
+                        <VehicleIcon type={vehicleIconType(match.assigned_vehicle)} />
+                      </span>
+                      <strong>{match.assigned_vehicle || "Tidak Ada Armada Cocok"}</strong>
+                    </div>
+                    <div className="vehicle-card-footer">
+                      <span className={scoreClass(match.match_score)}>
+                        {(match.match_score * 100).toFixed(0)}%
+                      </span>
+                      <em>{matched ? "Cocok" : "Tidak Cocok"}</em>
+                    </div>
+                    <p>{match.reason}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </section>
 }
