@@ -42,3 +42,39 @@ export default function Home() {
     }
   };
 
+useEffect(() => {
+    checkHealth();
+    const interval = setInterval(checkHealth, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const triggerToast = (message: string, type: "success" | "error" | "info" = "error") => {
+    setToastMessage(message);
+    setToastType(type);
+  };
+
+  const tabs: { id: Tab; label: string }[] = [
+    { id: "route", label: "Route & Eta Optimization" },
+    { id: "warehouse", label: "Warehouse Management" },
+    { id: "vehicle", label: "Vechicle Matching" },
+    { id: "forecasting", label: "Demand Forecasting" },
+  ];
+
+  return (
+    <div className="flex-1 w-full min-h-screen bg-grid-pattern px-4 pb-8 pt-8 sm:px-6 lg:px-8 flex flex-col items-center">
+      {toastMessage && (
+        <Toast
+          message={toastMessage}
+          type={toastType}
+          onClose={() => setToastMessage(null)}
+        />
+      )}
+
+      <div className="w-full max-w-[1075px] flex flex-col gap-8">
+        <header className="flex flex-col items-center gap-6">
+          <div className="relative w-[202px] h-[86px] text-[var(--color-primary)]">
+            <p className="font-audiowide text-[36px] leading-none tracking-[1.8px]">SIGER</p>
+            <p className="absolute left-[58px] top-[36px] font-michroma text-[24px] leading-none tracking-[1.2px]">
+              X-press
+            </p>
+          </div>
