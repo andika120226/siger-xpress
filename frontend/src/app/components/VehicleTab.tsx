@@ -88,5 +88,17 @@ const SIMULATION_SCENARIOS = [
       { name: "Dokumen Legal", type: "standard", weight_kg: "5" },
     ],
   },
+   {
+    name: "Armada Tidak Cocok",
+    vehicles: [
+      { name: "Box Truck Mu", type: "box", max_weight_kg: "1000" },
+      { name: "Motor Kurir Nu", type: "motorcycle", max_weight_kg: "50" },
+    ],
+    cargo: [
+      { name: "Mesin Pabrik", type: "standard", weight_kg: "3000" },
+      { name: "Bahan Kimia", type: "hazardous", weight_kg: "500" },
+      { name: "Surat Penting", type: "standard", weight_kg: "5" },
+    ],
+  },
 
 ]
