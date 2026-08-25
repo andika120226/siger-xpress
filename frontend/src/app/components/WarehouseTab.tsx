@@ -60,3 +60,24 @@ const SIMULATION_SCENARIOS = [
     ],
   },
 ];
+
+const FALLBACK_GRID = Array.from({ length: 30 }, (_, idx) => {
+  const zone = idx < 3 ? "fast_dispatch" : idx === 3 ? "heavy_zone" : idx < 4 ? "standard" : "empty";
+  return { id: Rak ${idx + 1}, zone };
+});
+const zoneLabels: Record<string, string> = {
+  empty: "Empty",
+  heavy_zone: "Heavy Load",
+  standard: "Normal",
+  fast_dispatch: "Fast Dispatch",
+  "Heavy Load": "Heavy Load",
+  "Medium Load": "Normal",
+  "Light Load": "Fast Dispatch",
+};
+
+const zoneClass = (zone: string) => {
+  if (zone === "heavy_zone" || zone === "Heavy Load") return "warehouse-rack-heavy";
+  if (zone === "standard" || zone === "Medium Load") return "warehouse-rack-normal";
+  if (zone === "fast_dispatch" || zone === "Light Load") return "warehouse-rack-fast";
+  return "warehouse-rack-empty";
+};
