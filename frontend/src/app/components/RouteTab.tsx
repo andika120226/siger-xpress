@@ -83,3 +83,17 @@ const SIMULATION_SCENARIOS = [
     ],
   },
 ];
+
+export default function RouteTab({ onError }: { onError: (msg: string) => void }) {
+  const [origin, setOrigin] = useState<Location>({
+    name: "Gudang Bandar Lampung",
+    lat: "-5.4292",
+    lng: "105.2611",
+  });
+  const [destinations, setDestinations] = useState<Location[]>([
+    { name: "Hub Bakauheni", lat: "-5.8708", lng: "105.7533" },
+    { name: "Toko Metro", lat: "-5.1131", lng: "105.3067" },
+  ]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<RouteResult | null>(null);
+  const [simulationStep, setSimulationStep] = useState<number | null>(null);
