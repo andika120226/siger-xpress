@@ -149,3 +149,56 @@ export default function ForecastingTab({ onError }: { onError: (msg: string) => 
           </strong>
         </article>
       </section>
+      <section className="figma-panel forecast-chart-panel">
+        {loading && <LoadingSpinner text="Menganalisis tren historis dan permintaan..." />}
+
+        {!loading && !result && (
+          <div className="forecast-empty-state">Tidak Ada Data</div>
+        )}
+
+        {!loading && result && (
+          <>
+            <div className="forecast-chart-header">
+              <h2>Proyeksi : {result.commodity}</h2>
+              <span>Rata-rata : {formatNumber(result.average_volume_tons)} ton/bln</span>
+            </div>
+
+            <div className="forecast-chart-shell">
+              <div className="forecast-y-axis" aria-hidden="true">
+                {yAxisTicks.map((tick) => (
+                  <span key={tick}>{formatNumber(tick, 0)}</span>
+                ))}
+              </div>
+
+              <div className="forecast-chart" role="img" aria-label={`Grafik proyeksi demand ${result.commodity}`}>
+                <div className="forecast-grid-lines" aria-hidden="true">
+                  {yAxisTicks.map((tick) => (
+                    <span key={tick} />
+                  ))}
+                </div>
+                <div className="forecast-average-line" style={{ bottom: `calc(34px + ${averageLinePosition * 0.88}%)` }}>
+                  <span>Avg {formatNumber(result.average_volume_tons, 0)} ton</span>
+                </div>
+
+                {chartData.map((point) => {
+                  const height = Math.max(8, (point.predicted_volume_tons / chartScaleMax) * 100);
+                  return (
+                    <div className="forecast-bar-group" key={point.month}>
+                      <div className="forecast-bar-track">
+                        <div
+                          className={`forecast-bar ${point.is_spike ? "is-spike" : ""}`}
+                          style={{ height: `${height}%` }}
+                          title={`${point.month}: ${formatNumber(point.predicted_volume_tons)} ton`}
+                        >
+                          <span>{formatNumber(point.predicted_volume_tons, 0)}</span>
+                        </div>
+                      </div>
+                      <span>{point.month}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
+      </section>
