@@ -258,3 +258,26 @@ export default function RouteMap({ origin, destinations, optimalSequence, traffi
             </div>
           </div>
         </div>
+
+        <ViewFitter points={allPoints} />
+
+        {/* ---- Traffic corridor indicators (always visible as dashed lines) ---- */}
+        {optimalSequence && TRAFFIC_CORRIDORS.map((corridor, idx) => (
+          <Polyline
+            key={`corridor-${idx}`}
+            positions={[corridor.from, corridor.to]}
+            pathOptions={{
+              color: corridor.status === "congested" ? "#FF3366" : "#FFD700",
+              weight: 3,
+              opacity: 0.35,
+              dashArray: "6, 10",
+            }}
+          >
+            <Popup>
+              <div className="text-xs text-gray-800 p-0.5">
+                <p className="font-extrabold mb-1">{corridor.label}</p>
+                <p className="text-[10px] text-gray-500">Indikator area bermasalah (garis putus-putus)</p>
+              </div>
+            </Popup>
+          </Polyline>
+        ))}
