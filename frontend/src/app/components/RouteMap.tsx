@@ -69,3 +69,25 @@ const TRAFFIC_CORRIDORS: {
     status: 'warning',
   },
 ];
+// ---------------------------------------------------------------------------
+// Dynamic Segment — straight at low zoom, curved (OSRM) at high zoom
+// ---------------------------------------------------------------------------
+function DynamicSegment({ start, end, color, status, distance, startName, endName }: {
+  start: [number, number];
+  end: [number, number];
+  color: string;
+  status: string;
+  distance: number;
+  startName: string;
+  endName: string;
+}) {
+  const map = useMap();
+  const [zoom, setZoom] = useState(map.getZoom());
+  const [osrmPositions, setOsrmPositions] = useState<[number, number][] | null>(null);
+  const fetchedRef = useRef(false);
+
+  useEffect(() => {
+    const handler = () => setZoom(map.getZoom());
+    map.on("zoomend", handler);
+    return () => { map.off("zoomend", handler); };
+  }, [map]);
