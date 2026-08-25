@@ -16,3 +16,16 @@ interface CargoInput {
   type: string;
   weight_kg: string;
 }
+interface MatchItem {
+  cargo: string;
+  assigned_vehicle: string;
+  status: string;
+  match_score: number;
+  reason: string;
+}
+
+interface MatchResult {
+  matches: MatchItem[];
+  unmatched_cargo: string[];
+  fleet_utilization_pct: number;
+}
