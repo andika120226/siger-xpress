@@ -169,4 +169,27 @@ export default function VehicleTab({ onError }: { onError: (msg: string) => void
     { name: "TV LED", type: "fragile", weight_kg: "500" },
     { name: "Dokumen", type: "standard", weight_kg: "5" },
   ]);
+   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<MatchResult | null>(null);
+
+  const utilization = result?.fleet_utilization_pct || 0;
+  const emptyPct = Math.max(0, 100 - utilization);
+  const hasMismatch = Boolean(
+    result && (
+      result.unmatched_cargo.length > 0 ||
+      result.matches.some((match) => match.status !== "Matched" || match.match_score < 0.7)
+    )
+  );
+
+  const addVehicle = () => setVehicles([...vehicles, { name: "", type: "box", max_weight_kg: "" }]);
+  const removeVehicle = (idx: number) => {
+    setResult(null);
+    setVehicles(vehicles.filter((_, i) => i !== idx));
+  };
+  const updateVehicle = (idx: number, field: keyof VehicleInput, value: string) => {
+    setResult(null);
+    const updated = [...vehicles];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setVehicles(updated);
+  };
 }
