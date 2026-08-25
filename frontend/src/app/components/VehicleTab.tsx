@@ -45,3 +45,18 @@ const CARGO_TYPES = [
   { value: "hazardous", label: "Berbahaya / Kimia" },
   { value: "standard", label: "Standar" },
 ];
+const SIMULATION_SCENARIOS = [
+   {
+    name: "Pengiriman Makanan Beku",
+    vehicles: [
+      { name: "Truk Pendingin Alpha", type: "refrigerated", max_weight_kg: "5000" },
+      { name: "Truk Pendingin Beta", type: "refrigerated", max_weight_kg: "3000" },
+      { name: "Motor Kurir Gamma", type: "motorcycle", max_weight_kg: "50" },
+    ],
+    cargo: [
+      { name: "Ikan Beku", type: "frozen", weight_kg: "2000" },
+      { name: "Daging Sapi", type: "frozen", weight_kg: "1500" },
+      { name: "Dokumen Pengiriman", type: "standard", weight_kg: "5" },
+    ],
+  },
+]
