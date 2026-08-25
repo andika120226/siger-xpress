@@ -19,7 +19,7 @@ interface RackAllocation {
   zone: string;
 }
 
-nterface WarehouseResult {
+interface WarehouseResult {
   rack_allocation: RackAllocation[];
   space_utilization_pct: number;
   total_racks_used: number;
@@ -32,7 +32,7 @@ type WarehouseView = "visual" | "detail";
 const EMPTY_ITEM = (): CargoItem => ({ name: "", qty: "", size: "small", weight_kg: "" });
 
 const SIMULATION_SCENARIOS = [
-   {
+  {
     name: "Kargo Ringan",
     dims: { length_m: "10", width_m: "10", height_m: "2" },
     items: [{ name: "Karton Elektronik", qty: "100", size: "small", weight_kg: "5" }],
@@ -63,8 +63,9 @@ const SIMULATION_SCENARIOS = [
 
 const FALLBACK_GRID = Array.from({ length: 30 }, (_, idx) => {
   const zone = idx < 3 ? "fast_dispatch" : idx === 3 ? "heavy_zone" : idx < 4 ? "standard" : "empty";
-  return { id: Rak ${idx + 1}, zone };
+  return { id: `Rak ${idx + 1}`, zone };
 });
+
 const zoneLabels: Record<string, string> = {
   empty: "Empty",
   heavy_zone: "Heavy Load",
@@ -81,8 +82,9 @@ const zoneClass = (zone: string) => {
   if (zone === "fast_dispatch" || zone === "Light Load") return "warehouse-rack-fast";
   return "warehouse-rack-empty";
 };
+
 export default function WarehouseTab({ onError }: { onError: (msg: string) => void }) {
-    const [dims, setDims] = useState({ length_m: "10", width_m: "10", height_m: "2" });
+  const [dims, setDims] = useState({ length_m: "10", width_m: "10", height_m: "2" });
   const [items, setItems] = useState<CargoItem[]>([
     { name: "Karton Elektronik", qty: "100", size: "small", weight_kg: "5" },
   ]);
@@ -102,6 +104,7 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
     });
     return map;
   }, [result]);
+
   const rackCells = result?.rack_grid?.flat() || FALLBACK_GRID;
   const remainingCapacity = result?.remaining_capacity_pct ?? 7.81;
   const progressWidth = Math.max(7.81, Math.min(100, result?.space_utilization_pct ?? 7.81));
@@ -118,6 +121,7 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
         .some((value) => value.toLowerCase().includes(term))
     );
   }, [result, searchTerm]);
+
   const paginatedAllocations = filteredAllocations.slice(
     (currentPage - 1) * rowsPerPage,
     currentPage * rowsPerPage
@@ -136,7 +140,8 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
     updated[idx] = { ...updated[idx], [field]: value };
     setItems(updated);
   };
-    const handleSubmit = async () => {
+
+  const handleSubmit = async () => {
     if (items.length < 1) {
       onError("Minimal 1 item kargo diperlukan.");
       return;
@@ -147,7 +152,7 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
     setCurrentPage(1);
 
     try {
-      const res = await fetch(${API_BASE}/warehouse/optimize, {
+      const res = await fetch(`${API_BASE}/warehouse/optimize`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -178,7 +183,8 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
       setLoading(false);
     }
   };
-   return (
+
+  return (
     <div className="animate-fade-in-up flex flex-col gap-8">
       <section className="flex flex-col gap-2">
         <h1 className="text-[28px] sm:text-[40px] leading-normal text-[var(--color-primary)] tracking-[2px]">
@@ -186,7 +192,7 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
         </h1>
         <div className="warehouse-progress">
           <div className="warehouse-progress-track">
-            <div className="warehouse-progress-fill" style={{ width: ${progressWidth}% }} />
+            <div className="warehouse-progress-fill" style={{ width: `${progressWidth}%` }} />
           </div>
           <span>{remainingCapacity.toFixed(2)}% free</span>
         </div>
@@ -199,13 +205,13 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
             {rackCells.map((cell, idx) => {
               const allocations = rackAllocationsByRack[cell.id] || [];
               const title = allocations.length
-                ? ${cell.id}: ${allocations.map((allocation) => `${allocation.qty}x ${allocation.item}).join(", ")}`
+                ? `${cell.id}: ${allocations.map((allocation) => `${allocation.qty}x ${allocation.item}`).join(", ")}`
                 : cell.id;
 
               return (
                 <div
-                  key={${cell.id}-${idx}}
-                  className={warehouse-rack ${zoneClass(cell.zone)}}
+                  key={`${cell.id}-${idx}`}
+                  className={`warehouse-rack ${zoneClass(cell.zone)}`}
                   title={title}
                 />
               );
