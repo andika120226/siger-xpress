@@ -111,4 +111,10 @@ const SIMULATION_SCENARIOS = [
       { name: "Kopi Kemasan UKM", type: "dry_food", weight_kg: "200" },
     ],
   },
-]
+];
+
+const scoreClass = (score: number) => {
+  if (score >= 0.9) return "vehicle-score-good";
+  if (score >= 0.7) return "vehicle-score-warn";
+  return "vehicle-score-bad";
+};
