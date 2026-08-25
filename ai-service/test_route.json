@@ -1,0 +1,13 @@
+{
+  "origin": {
+    "name": "Gudang Jakarta",
+    "lat": -6.2088,
+    "lng": 106.8456
+  },
+  "destinations": [
+    { "name": "Toko Bogor", "lat": -6.5971, "lng": 106.8060 },
+    { "name": "Toko Bandung", "lat": -6.9175, "lng": 107.6191 },
+    { "name": "Toko Depok", "lat": -6.4025, "lng": 106.7942 },
+    { "name": "Toko Bekasi", "lat": -6.241586, "lng": 106.992416 }
+  ]
+}

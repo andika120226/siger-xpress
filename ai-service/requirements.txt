@@ -1,0 +1,12 @@
+# Core
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.3
+
+# AI & Optimization
+ortools==9.12.4544
+numpy==2.2.6
+scipy==1.15.3
+
+# CORS
+python-multipart==0.0.20
