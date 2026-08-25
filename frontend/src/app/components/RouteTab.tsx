@@ -207,3 +207,35 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
           </div>
         </section>
       )}
+      {!result && (
+        <section className="relative h-[359px] overflow-hidden rounded-[8px]">
+          <RouteMap origin={origin} destinations={destinations} />
+        </section>
+      )}
+
+      {result && (
+        <section className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+          <MetricCard label="Total Jarak" value={result.total_distance_km} unit="KM" />
+          <MetricCard label="Estimasi Waktu" value={result.estimated_time_hours} unit="Jam" />
+          <MetricCard label="BBM Hemat" value={result.fuel_saved_liters} unit="Liter" />
+          <MetricCard label="Efisiensi" value={result.fuel_saved_pct} unit="%" />
+        </section>
+      )}
+
+      {result && (
+        <section className="figma-panel min-h-[303px] px-6 py-8 sm:px-[46px] sm:py-[49px]">
+          <h2 className="mb-6 text-[20px] sm:text-[24px] tracking-[1.2px]">Urutan Rute Optimal</h2>
+          <div className="route-sequence-scroll">
+            {result.optimal_sequence.map((stop, idx) => (
+              <div key={`${stop.order}-${stop.name}`} className="route-sequence-item">
+                <div className="route-stop-card" title={stop.name}>
+                  {stop.order}. {stop.name}
+                </div>
+                {idx < result.optimal_sequence.length - 1 && (
+                  <span className="route-arrow" aria-hidden="true">-&gt;</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
