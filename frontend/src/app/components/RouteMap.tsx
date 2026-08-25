@@ -187,7 +187,12 @@ function ViewFitter({ points }: { points: [number, number][] }) {
   }, [points, map]);
   return null;
 }
-export default function RouteMap({ origin, destinations, optimalSequence, trafficSegments }: RouteMapProps) {
+export default function RouteMap({
+  origin,
+  destinations,
+  optimalSequence,
+  trafficSegments,
+}: RouteMapProps) {
   const allPoints: [number, number][] = [];
   const allNames: string[] = [];
 
@@ -198,7 +203,7 @@ export default function RouteMap({ origin, destinations, optimalSequence, traffi
     allNames.push(origin.name);
   }
 
-  destinations.forEach(d => {
+  destinations.forEach((d) => {
     const dLat = parseFloat(d.lat as string) || 0;
     const dLng = parseFloat(d.lng as string) || 0;
     if (!isNaN(dLat) && !isNaN(dLng)) {
@@ -212,17 +217,17 @@ export default function RouteMap({ origin, destinations, optimalSequence, traffi
   // Pre-analysis preview route
   const manualRoute: [number, number][] = [];
   if (allPoints.length > 0) {
-    allPoints.forEach(p => manualRoute.push(p));
+    allPoints.forEach((p) => manualRoute.push(p));
     if (allPoints.length > 1) manualRoute.push(allPoints[0]);
   }
 
   const getTrafficColor = (status: string) => {
-    if (status === "congested") return "#FF3366"; // Red/Pink
-    if (status === "warning") return "#FFD700";   // Yellow
-    return "#10B981"; // Emerald Green for Clear (was cyan)
+    if (status === 'congested') return '#FF3366'; // Red/Pink
+    if (status === 'warning') return '#FFD700'; // Yellow
+    return '#10B981'; // Emerald Green for Clear (was cyan)
   };
 
-    return (
+  return (
     <div className="w-full h-full absolute inset-0">
       <MapContainer
         center={center}
@@ -262,22 +267,79 @@ export default function RouteMap({ origin, destinations, optimalSequence, traffi
         <ViewFitter points={allPoints} />
 
         {/* ---- Traffic corridor indicators (always visible as dashed lines) ---- */}
-        {optimalSequence && TRAFFIC_CORRIDORS.map((corridor, idx) => (
+        {optimalSequence &&
+          TRAFFIC_CORRIDORS.map((corridor, idx) => (
+            <Polyline
+              key={`corridor-${idx}`}
+              positions={[corridor.from, corridor.to]}
+              pathOptions={{
+                color: corridor.status === 'congested' ? '#FF3366' : '#FFD700',
+                weight: 3,
+                opacity: 0.35,
+                dashArray: '6, 10',
+              }}
+            >
+              <Popup>
+                <div className="text-xs text-gray-800 p-0.5">
+                  <p className="font-extrabold mb-1">{corridor.label}</p>
+                  <p className="text-[10px] text-gray-500">
+                    Indikator area bermasalah (garis putus-putus)
+                  </p>
+                </div>
+              </Popup>
+            </Polyline>
+          ))}
+
+        {/* ---- Markers ---- */}
+        {allPoints.map((pos, idx) => {
+          const isOrigin = idx === 0;
+          const locName = isOrigin ? origin.name : destinations[idx - 1]?.name;
+          return (
+            <Marker key={idx} position={pos} icon={isOrigin ? originIcon : destinationIcon}>
+              <Tooltip direction="top" offset={[0, -20]} opacity={0.95}>
+                <div className="text-xs font-semibold text-gray-800 p-0.5">
+                  <p className="font-extrabold">{locName}</p>
+                  <span className="block text-[10px] font-normal text-gray-500 mt-0.5">
+                    {isOrigin ? '📦 Titik Asal (Gudang)' : `📍 Toko Tujuan ${idx}`}
+                  </span>
+                </div>
+              </Tooltip>
+            </Marker>
+          );
+        })}
+
+        {/* ---- Pre-analysis preview (grey dashed) ---- */}
+        {!optimalSequence && manualRoute.length > 1 && (
           <Polyline
-            key={`corridor-${idx}`}
-            positions={[corridor.from, corridor.to]}
-            pathOptions={{
-              color: corridor.status === "congested" ? "#FF3366" : "#FFD700",
-              weight: 3,
-              opacity: 0.35,
-              dashArray: "6, 10",
-            }}
-          >
-            <Popup>
-              <div className="text-xs text-gray-800 p-0.5">
-                <p className="font-extrabold mb-1">{corridor.label}</p>
-                <p className="text-[10px] text-gray-500">Indikator area bermasalah (garis putus-putus)</p>
-              </div>
-            </Popup>
-          </Polyline>
-        ))}
+            positions={manualRoute}
+            pathOptions={{ color: '#9ca3af', weight: 3, opacity: 0.6, dashArray: '5, 10' }}
+          />
+        )}
+
+        {/* ---- Optimal route segments ---- */}
+        {optimalSequence &&
+          trafficSegments &&
+          trafficSegments.map((seg, idx) => {
+            const startStop = optimalSequence[seg.start_idx];
+            const endStop = optimalSequence[seg.end_idx];
+
+            if (startStop.lat && startStop.lng && endStop.lat && endStop.lng) {
+              return (
+                <DynamicSegment
+                  key={`seg-${idx}`}
+                  start={[startStop.lat, startStop.lng]}
+                  end={[endStop.lat, endStop.lng]}
+                  color={getTrafficColor(seg.status)}
+                  status={seg.status}
+                  distance={seg.distance_km}
+                  startName={seg.start_name}
+                  endName={seg.end_name}
+                />
+              );
+            }
+            return null;
+          })}
+      </MapContainer>
+    </div>
+  );
+}
