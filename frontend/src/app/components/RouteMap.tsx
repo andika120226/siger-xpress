@@ -50,25 +50,25 @@ const TRAFFIC_CORRIDORS: {
   label: string;
   status: 'congested' | 'warning';
 }[] = [
-  {
-    from: [-5.4292, 105.2611],
-    to: [-5.8708, 105.7533],
-    label: '⚠ Macet: B.Lampung ↔ Bakauheni',
-    status: 'congested',
-  },
-  {
-    from: [-4.8286, 104.8829],
-    to: [-5.0345, 104.0754],
-    label: '⚠ Macet: Kotabumi ↔ Liwa',
-    status: 'congested',
-  },
-  {
-    from: [-5.1131, 105.3067],
-    to: [-4.8286, 104.8829],
-    label: '⚠ Renovasi: Metro ↔ Kotabumi',
-    status: 'warning',
-  },
-];
+    {
+      from: [-5.4292, 105.2611],
+      to: [-5.8708, 105.7533],
+      label: '⚠ Macet: B.Lampung ↔ Bakauheni',
+      status: 'congested',
+    },
+    {
+      from: [-4.8286, 104.8829],
+      to: [-5.0345, 104.0754],
+      label: '⚠ Macet: Kotabumi ↔ Liwa',
+      status: 'congested',
+    },
+    {
+      from: [-5.1131, 105.3067],
+      to: [-4.8286, 104.8829],
+      label: '⚠ Renovasi: Metro ↔ Kotabumi',
+      status: 'warning',
+    },
+  ];
 // ---------------------------------------------------------------------------
 // Dynamic Segment — straight at low zoom, curved (OSRM) at high zoom
 // ---------------------------------------------------------------------------
