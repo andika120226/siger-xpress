@@ -239,3 +239,59 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
           </div>
         </section>
       )}
+
+      <section className="figma-panel grid min-h-[111px] grid-cols-1 items-center gap-4 px-6 py-6 sm:grid-cols-[minmax(260px,1fr)_minmax(320px,560px)] sm:px-[48px]">
+        <h2 className="text-[20px] sm:text-[24px] tracking-[1.2px]">Skenario Simulasi</h2>
+        <select
+          className="input-field select-field h-[60px] text-center text-[16px] sm:text-[20px]"
+          onChange={(e) => {
+            if (!e.target.value) return;
+            clearRouteResult();
+            const scenario = SIMULATION_SCENARIOS[parseInt(e.target.value)];
+            setOrigin(scenario.origin);
+            setDestinations(scenario.destinations);
+          }}
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Pilih Skenario Simulasi
+          </option>
+          {SIMULATION_SCENARIOS.map((scenario, idx) => (
+            <option key={scenario.name} value={idx}>
+              {scenario.name}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      <section className="figma-panel min-h-[349px] p-6 sm:p-8">
+        <h2 className="mb-6 text-center text-[20px] sm:text-[24px] tracking-[1.2px]">Kolom Input Data</h2>
+
+        <div className="space-y-5">
+          <div>
+            <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <label className="text-xs text-[var(--color-text-muted)]">Titik Asal</label>
+              <select
+                className="input-field select-field max-w-full text-xs sm:max-w-[260px]"
+                value=""
+                onChange={(e) => {
+                  if (!e.target.value) return;
+                  clearRouteResult();
+                  const loc = LOCATION_PRESETS[parseInt(e.target.value)];
+                  setOrigin({ name: loc.name, lat: loc.lat, lng: loc.lng });
+                }}
+              >
+                <option value="">Pilih dari Preset</option>
+                {LOCATION_PRESETS.map((preset, idx) => (
+                  <option key={preset.name} value={idx}>
+                    {preset.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <input className="input-field text-field" placeholder="Nama lokasi" value={origin.name} onChange={(e) => updateOrigin("name", e.target.value)} />
+              <input className="input-field coordinate-field" placeholder="Latitude" value={origin.lat} onChange={(e) => updateOrigin("lat", e.target.value)} />
+              <input className="input-field coordinate-field" placeholder="Longitude" value={origin.lng} onChange={(e) => updateOrigin("lng", e.target.value)} />
+            </div>
+          </div>
