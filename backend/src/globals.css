@@ -1022,3 +1022,208 @@ select.input-field {
   letter-spacing: 1.2px;
   text-align: center;
 }
+
+.forecast-empty-state.compact {
+  min-height: 110px;
+}
+
+.forecast-input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forecast-input-block > span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  letter-spacing: 0.65px;
+}
+
+@media (max-width: 768px) {
+  .warehouse-progress {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 10px;
+    padding: 7px;
+    text-align: center;
+  }
+
+  .warehouse-progress-track {
+    height: 54px;
+  }
+
+  .warehouse-visual-panel,
+  .warehouse-detail-panel {
+    padding: 28px 18px;
+  }
+
+  .warehouse-section-title {
+    font-size: 20px;
+  }
+
+  .warehouse-rack-grid {
+    grid-template-columns: repeat(5, 52px);
+    gap: 12px;
+  }
+
+  .warehouse-rack {
+    width: 52px;
+    height: 52px;
+  }
+
+  .warehouse-pagination {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .vehicle-progress {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 10px;
+    padding: 7px;
+    text-align: center;
+  }
+
+  .vehicle-progress-track {
+    height: 54px;
+  }
+
+  .vehicle-match-panel {
+    padding: 28px 18px;
+  }
+
+  .vehicle-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .forecast-metric-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .forecast-chart-panel,
+  .forecast-recommendation-panel {
+    padding: 28px 18px;
+  }
+
+  .forecast-chart-header {
+    flex-direction: column;
+  }
+
+  .forecast-chart {
+    height: 240px;
+  }
+
+  .forecast-recommendation-panel h2 {
+    font-size: 20px;
+  }
+}
+
+select.input-field option {
+  background: #ffffff;
+  color: #000000;
+}
+.forecast-empty-state.compact {
+  min-height: 110px;
+}
+
+.forecast-input-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forecast-input-block > span {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  letter-spacing: 0.65px;
+}
+
+@media (max-width: 768px) {
+  .warehouse-progress {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 10px;
+    padding: 7px;
+    text-align: center;
+  }
+
+  .warehouse-progress-track {
+    height: 54px;
+  }
+
+  .warehouse-visual-panel,
+  .warehouse-detail-panel {
+    padding: 28px 18px;
+  }
+
+  .warehouse-section-title {
+    font-size: 20px;
+  }
+
+  .warehouse-rack-grid {
+    grid-template-columns: repeat(5, 52px);
+    gap: 12px;
+  }
+
+  .warehouse-rack {
+    width: 52px;
+    height: 52px;
+  }
+
+  .warehouse-pagination {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .vehicle-progress {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 10px;
+    padding: 7px;
+    text-align: center;
+  }
+
+  .vehicle-progress-track {
+    height: 54px;
+  }
+
+  .vehicle-match-panel {
+    padding: 28px 18px;
+  }
+
+  .vehicle-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .forecast-metric-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .forecast-chart-panel,
+  .forecast-recommendation-panel {
+    padding: 28px 18px;
+  }
+
+  .forecast-chart-header {
+    flex-direction: column;
+  }
+
+  .forecast-chart {
+    height: 240px;
+  }
+
+  .forecast-recommendation-panel h2 {
+    font-size: 20px;
+  }
+}
+
+select.input-field option {
+  background: #ffffff;
+  color: #000000;
+}
