@@ -102,4 +102,20 @@ export default function WarehouseTab({ onError }: { onError: (msg: string) => vo
     });
     return map;
   }, [result]);
+  const rackCells = result?.rack_grid?.flat() || FALLBACK_GRID;
+  const remainingCapacity = result?.remaining_capacity_pct ?? 7.81;
+  const progressWidth = Math.max(7.81, Math.min(100, result?.space_utilization_pct ?? 7.81));
+
+  const filteredAllocations = useMemo(() => {
+    const term = searchTerm.trim().toLowerCase();
+    const rows = result?.rack_allocation || [
+      { item: "Karton Elektronik", qty: 24, assigned_rack: "Rak 1A (b.a)", zone: "Light Load" },
+    ];
+
+    if (!term) return rows;
+    return rows.filter((row) =>
+      [row.item, row.assigned_rack, row.zone, String(row.qty)]
+        .some((value) => value.toLowerCase().includes(term))
+    );
+  }, [result, searchTerm]);
 }
