@@ -23,3 +23,7 @@ Sistem ini menggunakan arsitektur yang memisahkan *Frontend*, *Backend*, dan *AI
 
 <img width="1247" height="747" alt="image" src="https://github.com/user-attachments/assets/61e96613-ab7f-46ef-a250-534da2d3b703" />
 
+<img width="1319" height="720" alt="image" src="https://github.com/user-attachments/assets/708f1a0e-e097-4cc3-a0a7-594f363c1b08" />
+<img width="1031" height="625" alt="image" src="https://github.com/user-attachments/assets/3468c32d-ed8b-4b3a-8ee6-5f6cde3ae85f" />
+
+
