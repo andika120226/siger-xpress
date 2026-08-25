@@ -169,3 +169,21 @@ const createCustomIcon = (color: string, isOrigin: boolean) => {
 
 const originIcon = createCustomIcon('#10B981', true);
 const destinationIcon = createCustomIcon('#0EA5E9', false);
+
+// ---------------------------------------------------------------------------
+// ViewFitter — fits all markers in view.
+// ---------------------------------------------------------------------------
+function ViewFitter({ points }: { points: [number, number][] }) {
+  const map = useMap();
+  const prevKey = useRef('');
+
+  useEffect(() => {
+    const key = JSON.stringify(points);
+    if (points.length > 0 && key !== prevKey.current) {
+      prevKey.current = key;
+      const bounds = L.latLngBounds(points);
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 9 });
+    }
+  }, [points, map]);
+  return null;
+}
