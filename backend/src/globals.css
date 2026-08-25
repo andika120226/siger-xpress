@@ -212,3 +212,33 @@ body {
 .btn-danger:hover {
   background: rgba(239, 68, 68, 0.05);
 }
+
+/* ======================================================== */
+/* Tab Styles                                               */
+/* ======================================================== */
+
+.tab-button {
+  position: relative;
+  height: 41.763px;
+  padding: 0 7.734px;
+  font-size: 15.468px;
+  font-family: var(--font-michroma), sans-serif;
+  font-weight: 400;
+  color: #0052d2;
+  background: transparent;
+  border: none;
+  border-radius: 7.734px 7.734px 0 0;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+  letter-spacing: 0;
+}
+
+.tab-button:hover {
+  background: rgba(0, 82, 210, 0.05);
+}
+
+.tab-button.active {
+  color: #ffffff;
+  background: #0052d2;
+}
