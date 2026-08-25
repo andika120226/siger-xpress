@@ -468,3 +468,45 @@ select.input-field {
   letter-spacing: 1px;
   transition: color 0.2s ease;
 }
+.warehouse-view-toggle:hover {
+  color: #003fa3;
+}
+
+.warehouse-search {
+  width: min(100%, 472px);
+  height: 60px;
+  border: 2px solid #0052d2;
+  border-radius: 8px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 0 14px;
+  margin-bottom: 24px;
+}
+
+.warehouse-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: var(--font-michroma), sans-serif;
+  font-size: 20px;
+}
+
+.warehouse-search span {
+  color: #0052d2;
+  font-size: 26px;
+}
+
+.warehouse-table-wrap {
+  max-width: 100%;
+  overflow-x: visible;
+}
+
+.warehouse-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: clamp(6px, 1vw, 14px) 8px;
+  table-layout: fixed;
+}
