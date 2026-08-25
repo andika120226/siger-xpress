@@ -318,3 +318,33 @@ select.input-field {
   overflow-y: hidden;
   padding: 4px 0 14px;
 }
+.route-sequence-item {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.route-stop-card {
+  width: min(74vw, 301px);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #0052d2;
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: #0052d2;
+  padding: 0 16px;
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.route-arrow {
+  width: 42px;
+  flex: 0 0 42px;
+  text-align: center;
+  color: #0052d2;
+  font-size: 24px;
+  line-height: 1;
+}
