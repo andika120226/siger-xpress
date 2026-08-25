@@ -81,3 +81,25 @@ const zoneClass = (zone: string) => {
   if (zone === "fast_dispatch" || zone === "Light Load") return "warehouse-rack-fast";
   return "warehouse-rack-empty";
 };
+export default function WarehouseTab({ onError }: { onError: (msg: string) => void }) {
+    const [dims, setDims] = useState({ length_m: "10", width_m: "10", height_m: "2" });
+  const [items, setItems] = useState<CargoItem[]>([
+    { name: "Karton Elektronik", qty: "100", size: "small", weight_kg: "5" },
+  ]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<WarehouseResult | null>(null);
+  const [activeView, setActiveView] = useState<WarehouseView>("visual");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const rowsPerPage = 5;
+
+  const rackAllocationsByRack = useMemo(() => {
+    const map: Record<string, RackAllocation[]> = {};
+    result?.rack_allocation.forEach((allocation) => {
+      if (!map[allocation.assigned_rack]) map[allocation.assigned_rack] = [];
+      map[allocation.assigned_rack].push(allocation);
+    });
+    return map;
+  }, [result]);
+}
