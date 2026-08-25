@@ -510,3 +510,43 @@ select.input-field {
   border-spacing: clamp(6px, 1vw, 14px) 8px;
   table-layout: fixed;
 }
+.warehouse-table th,
+.warehouse-table td {
+  height: 60px;
+  border: 2px solid #0052d2;
+  border-radius: 8px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: clamp(12px, 1.1vw, 16px);
+  letter-spacing: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  padding: 0 10px;
+}
+
+.warehouse-table th {
+  background: #0052d2;
+  color: #ffffff;
+  font-size: clamp(14px, 1.35vw, 20px);
+  letter-spacing: 0;
+}
+
+.warehouse-table th:nth-child(1),
+.warehouse-table td:nth-child(1) {
+  width: 35%;
+}
+
+.warehouse-table th:nth-child(2),
+.warehouse-table td:nth-child(2) {
+  width: 11%;
+}
+
+.warehouse-table th:nth-child(3),
+.warehouse-table td:nth-child(3) {
+  width: 27%;
+}
+
+.warehouse-table th:nth-child(4),
+.warehouse-table td:nth-child(4) {
+  width: 27%;
+}
