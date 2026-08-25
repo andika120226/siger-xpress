@@ -1,12 +1,13 @@
-<img width="1598" height="850" alt="image" src="https://github.com/user-attachments/assets/13f09355-be22-4b95-8d47-bbaa9718197f" />
+<img width="1595" height="716" alt="image" src="https://github.com/user-attachments/assets/7791c436-8a98-4d8e-91cd-31dae920968a" />
+
 # 🚚 SigerXpress
 
 > **SigerXpress** adalah inovasi perangkat lunak berbasis web yang mengintegrasikan *Artificial Intelligence* (AI) untuk mendukung dan mengoptimalkan efisiensi distribusi logistik, dengan fokus pengembangan untuk wilayah Provinsi Lampung. Proyek ini dibangun khusus untuk menjawab tantangan pada kompetisi **COMPFEST 18 AI Innovation Challenge**.
 
 ## 👥 Tim Pengembang
 * **Sajid** — *Backend & AI Service Developer*
-* **Nuh Andika Haryanto** — *Frontend Developer*
-* **Muhammad Khoiru Umam (Maruf)** — *Frontend Developer*
+* ** Andika** — *Frontend Developer*
+* **Maruf** — *Frontend Developer*
 
 ---
 
