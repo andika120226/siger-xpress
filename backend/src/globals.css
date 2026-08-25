@@ -550,3 +550,33 @@ select.input-field {
 .warehouse-table td:nth-child(4) {
   width: 27%;
 }
+
+.warehouse-zone-fast {
+  color: #00bc45;
+}
+
+.warehouse-zone-normal {
+  color: #9a5b00;
+}
+
+.warehouse-zone-heavy {
+  color: #dc2626;
+}
+
+.warehouse-pagination {
+  height: 60px;
+  border: 2px solid #0052d2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 22px 0 32px;
+  font-size: 13px;
+  letter-spacing: 0.65px;
+}
+
+.warehouse-pagination div {
+  display: flex;
+  gap: 32px;
+}
