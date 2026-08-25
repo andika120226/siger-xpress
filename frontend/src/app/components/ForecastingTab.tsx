@@ -41,3 +41,34 @@ const formatNumber = (value: number, digits = 2) =>
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
+export default function ForecastingTab({ onError }: { onError: (msg: string) => void }) {
+  const [commodityPreset, setCommodityPreset] = useState("Kopi Liwa");
+  const [commodity, setCommodity] = useState("Kopi Liwa");
+  const [months, setMonths] = useState("6");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<DemandResult | null>(null);
+
+  const metrics = useMemo(() => {
+    if (!result || result.forecast_data.length === 0) {
+      return {
+        totalVolume: 0,
+        peakMonth: "0",
+        peakVolume: 0,
+        maxVolume: 1,
+      };
+    }
+
+    return result.forecast_data.reduce(
+      (acc, item) => {
+        const volume = Number(item.predicted_volume_tons) || 0;
+        acc.totalVolume += volume;
+        acc.maxVolume = Math.max(acc.maxVolume, volume);
+        if (volume > acc.peakVolume) {
+          acc.peakVolume = volume;
+          acc.peakMonth = item.month;
+        }
+        return acc;
+      },
+      { totalVolume: 0, peakMonth: "-", peakVolume: 0, maxVolume: 1 }
+    );
+  }, [result]);
