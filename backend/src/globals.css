@@ -117,3 +117,29 @@ body {
   border-color: #003fa3;
   box-shadow: 0 0 0 3px rgba(0, 82, 210, 0.15);
 }
+.input-field::placeholder {
+  color: #888888;
+}
+
+.text-field {
+  background: #ffffff;
+  border-color: #0052d2;
+}
+
+.coordinate-field {
+  background: #fbfeff;
+  border-color: rgba(0, 82, 210, 0.72);
+  color: #1f2937;
+}
+
+.select-field {
+  background-color: #eef9ff;
+  border-color: #0052d2;
+  color: #0052d2;
+  cursor: pointer;
+  box-shadow: inset 4px 0 0 #0052d2;
+}
+
+.select-field:hover {
+  background-color: #e3f5ff;
+}
