@@ -614,3 +614,47 @@ select.input-field {
   background: var(--color-surface-elevated);
   overflow: hidden;
 }
+.vehicle-progress-fill {
+  height: 100%;
+  min-width: 0;
+  border-radius: 5px;
+  background: #0052d2;
+  transition: width 0.5s ease;
+}
+
+.vehicle-match-panel {
+  min-height: 455px;
+  padding: 42px 45px;
+}
+
+.vehicle-section-title {
+  margin-bottom: 24px;
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 1.2px;
+}
+
+.vehicle-empty-state {
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  color: #0052d2;
+  font-size: 24px;
+  letter-spacing: 1.2px;
+}
+
+.vehicle-results {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.vehicle-mismatch-note {
+  border: 2px solid #ef4444;
+  border-radius: 10px;
+  background: #fff7f7;
+  color: #b91c1c;
+  padding: 16px 18px;
+  font-size: 13px;
+  line-height: 1.7;
+}
