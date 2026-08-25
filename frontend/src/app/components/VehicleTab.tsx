@@ -118,3 +118,43 @@ const scoreClass = (score: number) => {
   if (score >= 0.7) return "vehicle-score-warn";
   return "vehicle-score-bad";
 };
+const vehicleIconType = (vehicleName: string) => {
+  const name = vehicleName.toLowerCase();
+  if (name.includes("motor")) return "motorcycle";
+  if (name.includes("pickup")) return "pickup";
+  if (name.includes("trailer")) return "trailer";
+  if (name.includes("pendingin") || name.includes("refrigerated")) return "refrigerated";
+  return "truck";
+};
+
+function VehicleIcon({ type = "truck" }: { type?: string }) {
+  if (type === "motorcycle") {
+    return (
+      <svg viewBox="0 0 64 40" aria-hidden="true">
+        <path d="M18 28h13l7-12h8" />
+        <path d="M28 16h9l6 12" />
+        <path d="M43 16h7" />
+        <circle cx="16" cy="30" r="6" />
+        <circle cx="48" cy="30" r="6" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 76 44" aria-hidden="true">
+      <path d="M6 12h38v22H6z" />
+      <path d="M44 19h13l10 9v6H44z" />
+      <path d="M52 22h5l5 5H52z" />
+      {type === "refrigerated" && (
+        <>
+          <path d="M17 19v9M13 22l8 5M21 22l-8 5" />
+          <path d="M29 18v10" />
+        </>
+      )}
+      {type === "trailer" && <path d="M6 8h44" />}
+      {type === "pickup" && <path d="M18 12v-4h26v4" />}
+      <circle cx="22" cy="35" r="5" />
+      <circle cx="58" cy="35" r="5" />
+    </svg>
+  );
+}
