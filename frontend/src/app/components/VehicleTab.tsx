@@ -73,4 +73,20 @@ const SIMULATION_SCENARIOS = [
       { name: "Faktur & Invoice", type: "standard", weight_kg: "2" },
     ],
   },
+    {
+    name: "Logistik Campuran",
+    vehicles: [
+      { name: "Truk Pendingin Eta", type: "refrigerated", max_weight_kg: "5000" },
+      { name: "Box Truck Theta", type: "box", max_weight_kg: "3000" },
+      { name: "Pickup Iota", type: "pickup", max_weight_kg: "1500" },
+      { name: "Motor Kurir Kappa", type: "motorcycle", max_weight_kg: "50" },
+    ],
+    cargo: [
+      { name: "Udang Beku", type: "frozen", weight_kg: "1800" },
+      { name: "Karton Elektronik", type: "fragile", weight_kg: "800" },
+      { name: "Cat Industri", type: "hazardous", weight_kg: "600" },
+      { name: "Dokumen Legal", type: "standard", weight_kg: "5" },
+    ],
+  },
+
 ]
