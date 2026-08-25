@@ -420,3 +420,51 @@ select.input-field {
   background: var(--color-bg);
   border-color: #0052d2;
 }
+.warehouse-rack-heavy {
+  background: #ff6262;
+  border-color: #ff473e;
+}
+
+.warehouse-rack-normal {
+  background: #ffb453;
+  border-color: #f48900;
+}
+
+.warehouse-rack-fast {
+  background: #53ff92;
+  border-color: #43d478;
+}
+
+.warehouse-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+  font-size: 10px;
+}
+
+.warehouse-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.warehouse-legend i {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.warehouse-view-toggle {
+  align-self: center;
+  color: #0052d2;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 20px;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+}
