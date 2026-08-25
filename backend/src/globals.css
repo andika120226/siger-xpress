@@ -709,3 +709,39 @@ select.input-field {
   place-items: center;
   flex: 0 0 auto;
 }
+.vehicle-form-icon {
+  width: 36px;
+  height: 25px;
+}
+
+.vehicle-card-icon svg,
+.vehicle-form-icon svg {
+  width: 82%;
+  height: 82%;
+  fill: none;
+  stroke: #0052d2;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.vehicle-form-icon svg {
+  stroke-width: 3.4;
+}
+
+.vehicle-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.vehicle-card-footer span {
+  font-size: 24px;
+}
+
+.vehicle-card-footer em {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
