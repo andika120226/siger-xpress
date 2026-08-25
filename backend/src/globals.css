@@ -865,3 +865,97 @@ select.input-field {
     linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.04));
   border-radius: 8px 8px 0 0;
 }
+
+.forecast-grid-lines {
+  position: absolute;
+  inset: 0 18px 34px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.forecast-grid-lines span {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 82, 210, 0.12);
+}
+
+.forecast-average-line {
+  position: absolute;
+  left: 0;
+  right: 18px;
+  z-index: 1;
+  border-top: 2px dashed rgba(239, 68, 68, 0.58);
+  pointer-events: none;
+}
+
+.forecast-average-line span {
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  padding: 4px 7px;
+  border: 1px solid rgba(239, 68, 68, 0.32);
+  border-radius: 7px;
+  background: rgba(255, 247, 247, 0.94);
+  color: #b91c1c;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.forecast-bar-group {
+  position: relative;
+  z-index: 2;
+  width: 86px;
+  min-width: 86px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) 34px;
+  align-items: end;
+  justify-items: center;
+  gap: 8px;
+}
+.forecast-bar-track {
+  width: 44px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.forecast-bar {
+  position: relative;
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  background: #0052d2;
+  box-shadow: 0 10px 18px rgba(0, 82, 210, 0.18);
+  transition: height 0.35s ease;
+}
+
+.forecast-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+}
+
+.forecast-bar > span {
+  position: absolute;
+  left: 50%;
+  top: -25px;
+  transform: translateX(-50%);
+  padding: 3px 6px;
+  border: 1px solid rgba(0, 82, 210, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0052d2;
+  font-size: 10px;
+  line-height: 1;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0, 82, 210, 0.1);
+}
+
+.forecast-bar.is-spike {
+  background: #ff6262;
+  box-shadow: 0 6px 14px rgba(239, 68, 68, 0.18);
+}
