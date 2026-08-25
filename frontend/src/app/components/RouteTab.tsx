@@ -295,3 +295,51 @@ export default function RouteTab({ onError }: { onError: (msg: string) => void }
               <input className="input-field coordinate-field" placeholder="Longitude" value={origin.lng} onChange={(e) => updateOrigin("lng", e.target.value)} />
             </div>
           </div>
+
+          <div>
+            <div className="mb-2 flex items-center justify-between">
+              <label className="text-xs text-[var(--color-text-muted)]">Titik Tujuan ({destinations.length})</label>
+              <button className="btn-secondary" onClick={addDest}>Tambah Tujuan</button>
+            </div>
+
+            <div className="space-y-3">
+              {destinations.map((dest, idx) => (
+                <div key={idx} className="destination-card rounded-[10px] border-2 border-[var(--color-primary)] p-3">
+                  <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <span className="text-xs text-[var(--color-primary)]">Tujuan {idx + 1}</span>
+                    <div className="flex items-center gap-2">
+                      <select
+                        className="input-field select-field !py-1.5 text-xs"
+                        value=""
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          clearRouteResult();
+                          const loc = LOCATION_PRESETS[parseInt(e.target.value)];
+                          const updated = [...destinations];
+                          updated[idx] = { name: loc.name, lat: loc.lat, lng: loc.lng };
+                          setDestinations(updated);
+                        }}
+                      >
+                        <option value="">Pilih Preset</option>
+                        {LOCATION_PRESETS.map((preset, presetIdx) => (
+                          <option key={preset.name} value={presetIdx}>
+                            {preset.name}
+                          </option>
+                        ))}
+                      </select>
+                      <button className="btn-danger" onClick={() => removeDest(idx)} title="Hapus tujuan">
+                        Hapus
+                      </button>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                    <input className="input-field text-field !py-1.5" placeholder="Nama lokasi" value={dest.name} onChange={(e) => updateDest(idx, "name", e.target.value)} />
+                    <input className="input-field coordinate-field !py-1.5" placeholder="Latitude" value={dest.lat} onChange={(e) => updateDest(idx, "lat", e.target.value)} />
+                    <input className="input-field coordinate-field !py-1.5" placeholder="Longitude" value={dest.lng} onChange={(e) => updateDest(idx, "lng", e.target.value)} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
